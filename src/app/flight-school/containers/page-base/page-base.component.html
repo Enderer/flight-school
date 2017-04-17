@@ -1,0 +1,33 @@
+<fs-sitenav class="mb-1" 
+  [count]="count$ | async"
+  (countChanged)="onCountChanged($event)"
+  (marksClicked)="onMarksClicked()">
+</fs-sitenav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col mt-1">
+      <button class="btn btn-primary">Hit</button>
+      <button class="btn btn-primary">Miss</button>
+      <button class="btn btn-danger">Cancel</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <ul class="list-group">
+        <li 
+          class="list-group-item" 
+          *ngFor="let mark of marks; let i = index;">
+            <div>{{i}}</div>
+            <div>[{{mark.s}}][{{mark.r}}]</div>
+            <div>[{{scores[mark.id]?.count}}]</div>
+            
+          </li>
+      </ul>
+      
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,30 @@
+@import './variables.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+
+// Force the modal plugin to remove rounded borders
+.modal-content { border-radius: 0; }
+
+.modal-dialog.modal-fullheight {
+    margin: 0 auto;
+    height: 100%;
+    max-width: 684px;
+
+    .modal-content {
+        height: 100%;
+    }
+}
+
+/** Modal dialog that slides in from the left */
+.modal .modal-dialog.modal-from-left {
+    -webkit-transform: translate(-25%, 0);
+    transform: translate(-25%, 0);
+}
+
+.modal.show .modal-dialog.modal-from-left {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.navbar-toggleable-xl .navbar-nav .dropdown-menu {
+    position: absolute;
+}

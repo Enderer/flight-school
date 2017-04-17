@@ -1,0 +1,108 @@
+
+
+  <div class="modal-dialog modal-fullheight modal-from-left" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" 
+            class="close"
+            aria-label="Close"
+            (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>{{count}}</div>
+        <ul class="list-group">
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(20, 1) }" (click)="markClicked(20, 1)">20</div>
+              <div [ngClass]="{ 'bg-success': isSelected(20, 3) }" (click)="markClicked(20, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(20, 2) }" (click)="markClicked(20, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(10, 1) }" (click)="markClicked(10, 1)">10</div>
+              <div [ngClass]="{ 'bg-success': isSelected(10, 3) }" (click)="markClicked(10, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(10, 2) }" (click)="markClicked(10, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(19, 1) }" (click)="markClicked(19, 1)">19</div>
+              <div [ngClass]="{ 'bg-success': isSelected(19, 3) }" (click)="markClicked(19, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(19, 2) }" (click)="markClicked(19, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(9, 1) }" (click)="markClicked(9, 1)">9</div>
+              <div [ngClass]="{ 'bg-success': isSelected(9, 3) }" (click)="markClicked(9, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(9, 2) }" (click)="markClicked(9, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(18, 1) }" (click)="markClicked(18, 1)">18</div>
+              <div [ngClass]="{ 'bg-success': isSelected(18, 3) }" (click)="markClicked(18, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(18, 2) }" (click)="markClicked(18, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(8, 1) }" (click)="markClicked(8, 1)">8</div>
+              <div [ngClass]="{ 'bg-success': isSelected(8, 3) }" (click)="markClicked(8, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(8, 2) }" (click)="markClicked(8, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(17, 1) }" (click)="markClicked(17, 1)">17</div>
+              <div [ngClass]="{ 'bg-success': isSelected(17, 3) }" (click)="markClicked(17, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(17, 2) }" (click)="markClicked(17, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(7, 1) }" (click)="markClicked(7, 1)">7</div>
+              <div [ngClass]="{ 'bg-success': isSelected(7, 3) }" (click)="markClicked(7, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(7, 2) }" (click)="markClicked(7, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(16, 1) }" (click)="markClicked(16, 1)">16</div>
+              <div [ngClass]="{ 'bg-success': isSelected(16, 3) }" (click)="markClicked(16, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(16, 2) }" (click)="markClicked(16, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(6, 1) }" (click)="markClicked(6, 1)">6</div>
+              <div [ngClass]="{ 'bg-success': isSelected(6, 3) }" (click)="markClicked(6, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(6, 2) }" (click)="markClicked(6, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(15, 1) }" (click)="markClicked(15, 1)">15</div>
+              <div [ngClass]="{ 'bg-success': isSelected(15, 3) }" (click)="markClicked(15, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(15, 2) }" (click)="markClicked(15, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(5, 1) }" (click)="markClicked(5, 1)">5</div>
+              <div [ngClass]="{ 'bg-success': isSelected(5, 3) }" (click)="markClicked(5, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(5, 2) }" (click)="markClicked(5, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(14, 1) }" (click)="markClicked(14, 1)">14</div>
+              <div [ngClass]="{ 'bg-success': isSelected(14, 3) }" (click)="markClicked(14, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(14, 2) }" (click)="markClicked(14, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(4, 1) }" (click)="markClicked(4, 1)">4</div>
+              <div [ngClass]="{ 'bg-success': isSelected(4, 3) }" (click)="markClicked(4, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(4, 2) }" (click)="markClicked(4, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(13, 1) }" (click)="markClicked(13, 1)">13</div>
+              <div [ngClass]="{ 'bg-success': isSelected(13, 3) }" (click)="markClicked(13, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(13, 2) }" (click)="markClicked(13, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(3, 1) }" (click)="markClicked(3, 1)">3</div>
+              <div [ngClass]="{ 'bg-success': isSelected(3, 3) }" (click)="markClicked(3, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(3, 2) }" (click)="markClicked(3, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(12, 1) }" (click)="markClicked(12, 1)">12</div>
+              <div [ngClass]="{ 'bg-success': isSelected(12, 3) }" (click)="markClicked(12, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(12, 2) }" (click)="markClicked(12, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(2, 1) }" (click)="markClicked(2, 1)">2</div>
+              <div [ngClass]="{ 'bg-success': isSelected(2, 3) }" (click)="markClicked(2, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(2, 2) }" (click)="markClicked(2, 2)">D</div>
+            </li>
+            <li class="list-group-item">
+              <div [ngClass]="{ 'bg-success': isSelected(11, 1) }" (click)="markClicked(11, 1)">11</div>
+              <div [ngClass]="{ 'bg-success': isSelected(11, 3) }" (click)="markClicked(11, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(11, 2) }" (click)="markClicked(11, 2)">D</div>
+              <div [ngClass]="{ 'bg-success': isSelected(1, 1) }" (click)="markClicked(1, 1)">1</div>
+              <div [ngClass]="{ 'bg-success': isSelected(1, 3) }" (click)="markClicked(1, 3)">T</div>
+              <div [ngClass]="{ 'bg-success': isSelected(1, 2) }" (click)="markClicked(1, 2)">D</div>
+            </li>
+        </ul>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="refreshClicked()">
+          <i class="fa fa-refresh"></i>
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirm(true)">Select Marks</button>
+      </div>
+    </div>
+  </div>

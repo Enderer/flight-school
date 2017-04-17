@@ -1,0 +1,8 @@
+.list-group-item {
+    flex-wrap: nowrap;
+
+    > div {
+        flex-grow: 1;
+        text-align: center;
+    }
+}
