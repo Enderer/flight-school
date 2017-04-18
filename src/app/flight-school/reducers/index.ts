@@ -7,8 +7,9 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
 import { Mark } from '../models/mark';
-import { Turn, getScores } from '../models/score';
+import { Turn, Selected, getScores, getTarget } from '../models/score';
 
+import * as fromSelected from './selected.reducer';
 import * as fromTurns from './turns.reducer';
 import * as fromCount from './count.reducer';
 import * as fromMarks from './marks.reducer';
@@ -19,13 +20,15 @@ export interface State {
     marks: Mark[];
     turns: Turn[];
     marksModal: fromMarksModal.State;
+    selected: Selected;
 }
 
 const reducers = {
     count: fromCount.reducer,
     marksModal: fromMarksModal.reducer,
     marks: fromMarks.reducer,
-    turns: fromTurns.reducer
+    turns: fromTurns.reducer,
+    selected: fromSelected.reducer
 };
 
 const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
@@ -36,12 +39,9 @@ export function reducer(state: any, action: any) {
 }
 
 export const getCount = (state: State) => state.count;
-
-// Marks
 export const getMarks = (state: State) => state.marks;
-
-// Turns
 export const getTurns = (state: State) => state.turns;
+export const getSelected = (state: State) => state.selected;
 
 // Marks Modal
 export const getShowMarkModalState = (state: State) => state.marksModal;
@@ -49,3 +49,6 @@ export const getMarksModalShow = createSelector(getShowMarkModalState, fromMarks
 
 // Scores
 export const getScore = createSelector(getTurns, getMarks, getScores); 
+
+// Target
+export const getNextTarget = createSelector(getMarks, getTurns, getTarget); 

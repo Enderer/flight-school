@@ -20,9 +20,15 @@
           class="list-group-item" 
           *ngFor="let mark of marks; let i = index;">
             <div>{{i}}</div>
-            <div>[{{mark.s}}][{{mark.r}}]</div>
+            <div (click)="select(mark)">[{{mark.s}}][{{mark.r}}]</div>
             <div>[{{scores[mark.id]?.count}}]</div>
-            
+            <div>
+              <span *ngIf="isFirstTarget(mark)">First</span>
+              <span *ngIf="isSecondTarget(mark)">Second</span>
+              <span *ngIf="isThirdTarget(mark)">Third</span>
+              <span *ngIf="isTarget(mark)">Target</span>
+              <span *ngIf="isSelected(mark)">Selected</span>
+            </div>
           </li>
       </ul>
       
