@@ -4,6 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Modal title</h5>
+        <div>{{count}}</div>
         <button type="button" 
             class="close"
             aria-label="Close"
@@ -12,7 +13,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <div>{{count}}</div>
+        
         <ul class="list-group">
             <li class="list-group-item">
               <div [ngClass]="{ 'bg-success': isSelected(20, 1) }" (click)="markClicked(20, 1)">20</div>
@@ -102,7 +103,7 @@
           <i class="fa fa-refresh"></i>
         </button>
         <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="confirm(true)">Select Marks</button>
+        <button type="button" class="btn btn-primary" (click)="confirm()">Select Marks</button>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
@@ -7,7 +8,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
 import { Mark } from '../models/mark';
-import { Turn, Selected, getScores, getTarget } from '../models/score';
+import { Score, Turn, Selected, getScores, getTarget } from '../models/score';
 
 import * as fromSelected from './selected.reducer';
 import * as fromTurns from './turns.reducer';
@@ -40,6 +41,7 @@ export function reducer(state: any, action: any) {
 
 export const getCount = (state: State) => state.count;
 export const getMarks = (state: State) => state.marks;
+
 export const getTurns = (state: State) => state.turns;
 export const getSelected = (state: State) => state.selected;
 
@@ -50,5 +52,16 @@ export const getMarksModalShow = createSelector(getShowMarkModalState, fromMarks
 // Scores
 export const getScore = createSelector(getTurns, getMarks, getScores); 
 
+export const getActiveMarks = createSelector(getScore, getCount, (scores, count): Mark[] => {
+    console.debug('getActiveMarks');
+
+    const s = _.values(scores);
+    const a = _.filter(s, score => {
+        return !(score.count >= count);
+    });
+    const m = _.map(a, score => score.mark);
+    return m;
+});
+
 // Target
-export const getNextTarget = createSelector(getMarks, getTurns, getTarget); 
+export const getNextTarget = createSelector(getActiveMarks, getTurns, getTarget);

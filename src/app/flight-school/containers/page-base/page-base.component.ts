@@ -14,6 +14,7 @@ import * as selectedActions from '../../actions/selected.actions';
 import * as countActions from '../../actions/count.actions';
 import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
+import * as turnsActions from '../../actions/turns.actions';
 
 
 @Component({
@@ -42,6 +43,9 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     selected$: Observable<Selected>;
     selected: Selected;
 
+    activeMarks$: Observable<Mark[]>;
+    activeMarks: {[id: string]: Mark};
+
     constructor(
         private store: Store<fromRoot.State>,
         private dialogService: DialogService) {
@@ -53,13 +57,15 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.score$ = this.store.select(fromRoot.getScore);
         this.target$ = this.store.select(fromRoot.getNextTarget);
         this.selected$ = this.store.select(fromRoot.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
+        this.activeMarks$ = this.store.select(fromRoot.getActiveMarks);
      }
 
     ngOnInit() {
         this.marks$.subscribe(marks => {
             console.debug('PageBase::marks$ success', marks);
             this.marks = marks;
-            this.store.dispatch(new selectedActions.SelectedUpdateComplete({ first: false, second: false, third: false }));
+            const emptyTarget = { first: false, second: false, third: false };
+            this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
         });
 
         this.showMarks$.subscribe(show => {
@@ -71,9 +77,11 @@ export class PageBaseComponent implements OnInit, OnDestroy {
             }
         });
 
+        this.turns$.subscribe(turns => this.turns = turns);
         this.score$.subscribe(scores => this.scores = scores);
         this.target$.subscribe(target => this.target = target);
         this.selected$.subscribe(selected => this.selected = selected);
+        this.activeMarks$.subscribe(activeMarks => this.activeMarks = _.keyBy(activeMarks, m => m.id));
     }
 
     ngOnDestroy() {    }
@@ -123,6 +131,40 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new selectedActions.SelectedUpdateComplete(selected));
     }
 
+    enterClicked(): void {
+        const turn = new Turn();
+        turn.start = this.target.first;
+        turn.target = this.target;
+
+        if (this.target && this.target.first && this.isSelected(this.target.first)) { 
+            turn.throws.push(new Throw(this.target.first));
+        }
+        if (this.target && this.target.second && this.isSelected(this.target.second)) {
+            turn.throws.push(new Throw(this.target.second));
+        }
+        if (this.target && this.target.third && this.isSelected(this.target.third)) {
+            turn.throws.push(new Throw(this.target.third));
+        }
+
+        const turns = [...this.turns, turn];
+
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete(turns));
+        this.store.dispatch(new selectedActions.SelectedUpdateComplete({ first: null, second: null, third: null }));
+    }
+
+    onResetClicked(): void {
+        console.debug('PageBase::onResetClicked');
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
+    }
+
+    cancelClicked(): void {
+        console.log('PagePase::cancelClicked');
+        const turns = this.turns;
+        if (!(turns && turns.length > 0)) { return; }
+        const newTurns = turns.slice(0, turns.length - 1);
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete(newTurns));
+    }
+
     private isTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
 
@@ -131,6 +173,19 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         if (this.equal(this.target.third, mark)) { return true; }
 
         return false;
+    }
+
+    isActive(mark: Mark): boolean {
+        console.debug('PageBase::isActive', mark);
+        if (mark == null || this.activeMarks == null) { return false; }
+        const active = !!this.activeMarks[mark.id];
+        
+        console.debug('PageBase::isActive', mark, active);
+        return active;
+    }
+
+    get showButtons(): boolean {
+        return this.marks && this.marks.length > 0;
     }
 
     private openMarksModal() {
@@ -167,6 +222,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new marksModalActions.Hide());
         if (marks) {
             this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
+            this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
         }
     }
 

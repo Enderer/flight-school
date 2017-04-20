@@ -8,9 +8,10 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 })
 export class SitenavComponent implements OnInit {
 
-    @Input() count: number = 5;
+    @Input() count = 5;
     @Output() countChanged = new EventEmitter<number>();
     @Output() marksClicked = new EventEmitter();
+    @Output() resetClicked = new EventEmitter();
 
     constructor() { }
 
@@ -21,8 +22,14 @@ export class SitenavComponent implements OnInit {
         this.countChanged.emit(count);
     }
 
-    onMarksClicked(){
+    onMarksClicked() {
         console.debug('SitenavComponent::onMarksClicked');
         this.marksClicked.emit();
     }
+
+    onResetClicked(): void {
+        console.debug('SitenavComponent::resetClicked');
+        this.resetClicked.emit();
+    }
+    
 }

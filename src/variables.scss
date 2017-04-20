@@ -1,1 +1,18 @@
-$border-radius: 0px;
+$enable-rounded:            false !default;
+$enable-shadows:            false !default;
+$enable-gradients:          false !default;
+
+$text-muted: #aaa;
+$white: #fff;
+$brand-blank: $white;
+$text-semibold-font-weight: 600;
+$spacer-y: .5rem;
+
+$navbar-brand-padding-y: 0;
+$navbar-height: 3.5rem;
+$navbar-padding-y: 0;
+$navitem-padding-y: 0;
+$navitem-align: center;
+$nav-link-padding-y: 1.2em;
+$nav-link-active-bg: rgba(0,0,0,.5);
+

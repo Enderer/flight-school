@@ -1,39 +1,130 @@
-<fs-sitenav class="mb-1" 
-  [count]="count$ | async"
-  (countChanged)="onCountChanged($event)"
-  (marksClicked)="onMarksClicked()">
-</fs-sitenav>
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col mt-1">
-      <button class="btn btn-primary">Hit</button>
-      <button class="btn btn-primary">Miss</button>
-      <button class="btn btn-danger">Cancel</button>
-    </div>
-  </div>
+<div class="container-fluid px-0 w-100 h-100 bg-faded" style="position: absolute">
+    <div class="row h-100 no-gutters">
+        <div class="col-xl-5 h-100" style="background:#fff;">
+            
+            <div class="d-flex flex-column w-100 h-100" style="position:absolute">
 
-  <div class="row">
-    <div class="col">
-      <ul class="list-group">
-        <li 
-          class="list-group-item" 
-          *ngFor="let mark of marks; let i = index;">
-            <div>{{i}}</div>
-            <div (click)="select(mark)">[{{mark.s}}][{{mark.r}}]</div>
-            <div>[{{scores[mark.id]?.count}}]</div>
-            <div>
-              <span *ngIf="isFirstTarget(mark)">First</span>
-              <span *ngIf="isSecondTarget(mark)">Second</span>
-              <span *ngIf="isThirdTarget(mark)">Third</span>
-              <span *ngIf="isTarget(mark)">Target</span>
-              <span *ngIf="isSelected(mark)">Selected</span>
+                <fs-sitenav 
+                    [count]="count$ | async" 
+                    (countChanged)="onCountChanged($event)" 
+                    (marksClicked)="onMarksClicked()"
+                    (resetClicked)="onResetClicked()">
+                </fs-sitenav>
+
+                <div style="flex-grow:1; overflow:hidden;">
+
+                    <div *ngIf="!showButtons" class="px-1 my-1">
+                        <button class="btn btn-info" (click)="onMarksClicked()">
+                            <i class="fa fa-crosshairs"></i>
+                            <span>Marks</span>
+                        </button> 
+                        <span>Select Marks to begin</span><br>
+                    </div>
+
+                    <div *ngIf="showButtons" class="px-1 my-1">
+                        <button class="btn btn-primary" (click)="enterClicked()">Enter</button>
+                        <button class="btn btn-danger" (click)="cancelClicked()">Cancel</button>
+                        <button class="btn btn-info"><i class="fa fa-bar-chart"></i></button>
+                    </div>
+
+                    <ul *ngIf="showButtons" class="list-group list-group-flush">
+                        <li class="list-group-item" [class.text-muted]="!isActive(mark)" *ngFor="let mark of marks; let i = index;">
+                            <div>{{i}}</div>
+                            <div (click)="select(mark)">[{{mark.s}}][{{mark.r}}]</div>
+                            <div>
+                                <span class="ml-2" *ngIf="isFirstTarget(mark)">T1 <i class="fa fa-asterisk"></i></span>
+                                <span class="ml-2" *ngIf="isSecondTarget(mark)">T2</span>
+                                <span class="ml-2" *ngIf="isThirdTarget(mark)">T3</span>
+                                <span *ngIf="isSelected(mark)">Selected</span>
+                            </div>
+
+                            <div class="ml-auto">
+                                [{{scores[mark.id]?.count}}]
+                                [{{scores[mark.id]?.attempts}}]
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-          </li>
-      </ul>
-      
+
+        </div>
+
+        <div class="col-xl-6 h-100 hidden-lg-down">
+            
+            
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
     </div>
-  </div>
 </div>
 
 
+
+
+<!--
+
+<div class="d-flex flex-column w-100 h-100" style="position:absolute">
+
+    <div>
+        <div class="container-fluid px-0">
+            <div class="row no-gutters">
+                <div class="col col-xl-6">
+                    <fs-sitenav class="mb-1" [count]="count$ | async" (countChanged)="onCountChanged($event)" (marksClicked)="onMarksClicked()">
+                    </fs-sitenav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="flex-grow:1; overflow:hidden;">
+        <div class="container-fluid px-0">
+            <div class="row no-gutters">
+                <div *ngIf="showButtons" class="col col-xl-6 my-1">
+                    <button class="btn btn-primary" (click)="enterClicked()">Enter</button>
+                    <button class="btn btn-danger" (click)="cancelClicked()">Cancel</button>
+                    <button class="btn btn-info"><i class="fa fa-bar-chart"></i></button>
+                </div>
+                
+                <div *ngIf="!showButtons" class="col col-xl-6 my-1">
+                    <button class="btn btn-info" (click)="onMarksClicked()">
+                        <i class="fa fa-crosshairs"></i>
+                        Marks
+                    </button> 
+                    Select Marks to begin<br>
+                </div>
+            </div>
+
+            <div class="row no-gutters">
+                <div class="col col-xl-6">
+                    <ul class="list-group">
+                        <li class="list-group-item" [class.text-muted]="!isActive(mark)" *ngFor="let mark of marks; let i = index;">
+                            <div>{{i}}</div>
+                            <div (click)="select(mark)">[{{mark.s}}][{{mark.r}}]</div>
+                            <div>
+                                <span class="ml-2" *ngIf="isFirstTarget(mark)">T1 <i class="fa fa-asterisk"></i></span>
+                                <span class="ml-2" *ngIf="isSecondTarget(mark)">T2</span>
+                                <span class="ml-2" *ngIf="isThirdTarget(mark)">T3</span>
+                                <span *ngIf="isSelected(mark)">Selected</span>
+                            </div>
+
+                            <div class="ml-auto">{{scores[mark.id]?.count}}</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>-->

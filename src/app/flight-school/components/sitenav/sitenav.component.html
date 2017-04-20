@@ -3,21 +3,25 @@
 
     <a class="navbar-brand mr-4" href="#">
         <!--<i class="fa fa-university"></i>-->
-        Flight School
+        FS
     </a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" (click)="onResetClicked()" href="#">
                     <i class="fa fa-lg fa-refresh"></i>
                 </a>
             </li>
         </ul>
     </div>
 
+
+
+
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">    
+
             <li class="nav-item dropdown" style="min-width: 4em; text-align:center">
                 <a class="nav-link dropdown-toggle" 
                     href="#" 
@@ -41,10 +45,13 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" 
+                <a class="nav-link"
                     (click)="onMarksClicked()" 
                     href="javascript:void(0)">
-                    Marks
+                    <i class="ml-1 fa fa-lg fa-crosshairs"></i>
+                    <span class="hidden-xs-down">Marks</span>
+                    <!--<i class="ml-1 fa fa-lg fa-external-link"></i>-->
+                    <!--<i class="ml-1 fa fa-lg fa-external-link-square"></i>-->
                 </a>
             </li>
         </ul>

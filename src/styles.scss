@@ -1,6 +1,11 @@
 @import './variables.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+// html {
+//     // font-size: 1.5em;
+// }
+
+
 // Force the modal plugin to remove rounded borders
 .modal-content { border-radius: 0; }
 
@@ -27,4 +32,110 @@
 
 .navbar-toggleable-xl .navbar-nav .dropdown-menu {
     position: absolute;
+}
+
+// Remove outline styles for buttons.
+// By default buttons have a glow when they are focused on.
+// This looks strange in most cases so we're removing it here.
+.btn { outline:0!important; }
+
+// Add a bg-* class for blank background
+// Applies a white background in default theme
+.bg-blank {
+    background-color: $brand-blank;
+}
+
+// Semi bold text
+// This class marks text with a weight of 600 which is not as
+// heavy as full bold but still emphasized compared to normal text
+.font-weight-semibold
+{
+    font-weight: $text-semibold-font-weight;
+}
+
+// Prevents user from selecting or highlighting text. This is useful
+// on buttons or toolbars where you want to prevent accidental selecting.
+.no-select
+{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+// Allow user to select text. This is useful on elements that have 
+// the no-select applied but you where you want to allow specific 
+// elements to be selectable withing that non-selectable container.
+.allow-select
+{
+    -moz-user-select: auto;
+    -webkit-user-select: auto;
+    -ms-user-select: auto;
+    -o-user-select: auto;
+    user-select: auto;
+}
+
+
+/**
+ * Navbar Custom Heights
+ * Mixin for creating navbar variants with a specific height
+ */
+@mixin navbar-height-variant($height){
+    min-height: $height;
+    .navbar-nav {
+        .nav-item {
+            min-height: $height;
+            line-height: $height;
+            min-width: $height;
+            text-align: $navitem-align;
+            border: 1px solid #111;
+            border-width: 0 0 0 1px;
+
+            &:last-child {
+                border-right-width: 1px;
+            }
+        }
+
+        .nav-link {
+            padding-left: $nav-link-padding-y;
+            padding-right: $nav-link-padding-y;
+            padding-top: 0;
+            padding-bottom: 0;
+
+            &:active {
+                background: $nav-link-active-bg;
+            }
+        }
+    }
+
+    .navbar-text {
+        line-height: $height;
+        padding-top:0;
+        padding-bottom:0;
+    }
+    
+    .navbar-brand {
+        min-height: $height;
+        line-height: $height;
+        vertical-align:middle;
+        padding-top: $navbar-brand-padding-y;
+        padding-bottom:  $navbar-brand-padding-y;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        line-height: $height;
+        margin-bottom:0;
+    }
+
+    // Reset line-height back to normal for dropdown menus
+    // This is broken from inherited styles from parent
+    .dropdown-menu {
+        line-height: $line-height-base;
+    }
+}
+
+// Navbar
+.navbar {
+    @include navbar-height-variant($navbar-height);
 }
