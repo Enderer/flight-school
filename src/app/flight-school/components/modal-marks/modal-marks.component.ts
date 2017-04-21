@@ -20,8 +20,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     title: string;
     message: string;
     marks: Mark[];
-    selected: {[id: string]: boolean} = {};
-
+    selected: {[id: string]: number} = {};
+    num = 1;
     sectors = _.sortBy(sectors).reverse();
     rings = rings;
     lookup = lookup;
@@ -31,8 +31,11 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     }
 
     ngOnInit() {
+        console.debug('ModalMarks::ngOnInit');
         const marks = this.marks || [];
-        marks.forEach(m => this.selected[m.id] = true);
+        marks.forEach((m, i) => {
+            this.selected[m.id] = this.num++;
+        });
     }
 
     isSelected(s: number, r: number): boolean {
@@ -43,28 +46,45 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     }
     
     refreshClicked() {
+        console.debug('ModalMarks::refeshClicked');
         this.selected = {};
     }
 
     markClicked(sector: number, ring: number) {
         const mark = this.lookup[sector][ring];
         const id = mark.id;
-        const selected = !this.selected[id];
-        this.selected[id] = selected;
-        console.debug('ModalMarks::markClicked selected', sector, ring, selected);
+        if (this.selected[id]) { 
+            this.selected[id] = null;
+        } else {
+            this.selected[id] = this.num++;
+        }
+        console.debug('ModalMarks::markClicked selected', sector, ring, this.selected[id]);
     }
 
+    /**
+     * User has clicked the save button. Return the list of selected marks
+     */
     confirm() {
-        const selected = marks.filter(m => this.selected[m.id]);
+        console.debug('ModalMarks::confirm');
+
+        // Get the marks that have been selected by the user and return them
+        // Make sure they are sorted in the order that they were clicked
+        // The first mark clicked will be the first in the list when the 
+        // dialog closed.
+        const indexed = _.map(marks, m => {
+            return { i: this.selected[m.id], m };
+        });
+        const filtered =  _.filter(indexed, s => s.i);
+        const ordered = _.orderBy(filtered, 'i');
+        const selected = _.map(ordered, m => m.m);
+
+        // Set the marks and close the form
         this.result = selected;
         this.close();
     }
 
-    get selectedMarks(): Mark[] {
-        return marks.filter(m => this.selected[m.id]);
-    }
-
     get count(): number {
-        return this.selectedMarks.length;
+        const selected = marks.filter(m => this.selected[m.id]);
+        return selected.length || 0;
     }
 }

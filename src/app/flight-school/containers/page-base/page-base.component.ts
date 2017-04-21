@@ -177,11 +177,8 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     }
 
     isActive(mark: Mark): boolean {
-        console.debug('PageBase::isActive', mark);
         if (mark == null || this.activeMarks == null) { return false; }
         const active = !!this.activeMarks[mark.id];
-        
-        console.debug('PageBase::isActive', mark, active);
         return active;
     }
 
