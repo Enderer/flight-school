@@ -6,6 +6,7 @@ import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { PageBaseComponent } from './containers/page-base/page-base.component';
 import { SitenavComponent, ModalMarksComponent } from './components';
 import { reducer } from './reducers';
+import { MarkPipe } from './pipes';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { reducer } from './reducers';
   declarations: [
     PageBaseComponent, 
     SitenavComponent, 
-    ModalMarksComponent
+    ModalMarksComponent, 
+    MarkPipe
   ],
   entryComponents:[ModalMarksComponent],
   exports: [

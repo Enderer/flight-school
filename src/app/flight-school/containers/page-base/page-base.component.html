@@ -30,8 +30,8 @@
 
                     <ul *ngIf="showButtons" class="list-group list-group-flush">
                         <li class="list-group-item" [class.text-muted]="!isActive(mark)" *ngFor="let mark of marks; let i = index;">
-                            <div>{{i}}</div>
-                            <div (click)="select(mark)">[{{mark.s}}][{{mark.r}}]</div>
+                            <div class="mr-2">{{i + 1}}</div>
+                            <div (click)="select(mark)">{{mark | mark}}</div>
                             <div>
                                 <span class="ml-2" *ngIf="isFirstTarget(mark)">T1 <i class="fa fa-asterisk"></i></span>
                                 <span class="ml-2" *ngIf="isSecondTarget(mark)">T2</span>
