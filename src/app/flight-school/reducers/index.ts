@@ -7,6 +7,8 @@ import { compose } from '@ngrx/core/compose';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
+import { environment } from '../../../environments/environment';
+
 import { Mark } from '../models/mark';
 import { Score, Turn, Selected, getScores, getTarget } from '../models/score';
 
@@ -15,6 +17,10 @@ import * as fromTurns from './turns.reducer';
 import * as fromCount from './count.reducer';
 import * as fromMarks from './marks.reducer';
 import * as fromMarksModal from './marks-modal.reducer';
+
+import { localStorageSync } from 'ngrx-store-localstorage';
+
+
 
 export interface State {
     count: number;
@@ -32,12 +38,23 @@ const reducers = {
     selected: fromSelected.reducer
 };
 
-const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
+// const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
 // const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
+const storageReducer = localStorageSync(['turns', 'marks', 'count', 'selected'], true);
+
+const developmentReducer = compose(storeFreeze, storageReducer, combineReducers)(reducers);
+const productionReducer = compose(storageReducer, combineReducers)(reducers);
+
 export function reducer(state: any, action: any) {
-    return developmentReducer(state, action);
+    if (environment.production) {
+        return productionReducer(state, action);
+    } else {
+        return developmentReducer(state, action);
+    }
 }
+
+
 
 export const getCount = (state: State) => state.count;
 export const getMarks = (state: State) => state.marks;
@@ -50,7 +67,7 @@ export const getShowMarkModalState = (state: State) => state.marksModal;
 export const getMarksModalShow = createSelector(getShowMarkModalState, fromMarksModal.getShow);
 
 // Scores
-export const getScore = createSelector(getTurns, getMarks, getScores); 
+export const getScore = createSelector(getTurns, getMarks, getScores);
 
 export const getActiveMarks = createSelector(getScore, getCount, (scores, count): Mark[] => {
     console.debug('getActiveMarks');

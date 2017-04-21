@@ -128,6 +128,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
                 selected = three;
             }
         }
+
         this.store.dispatch(new selectedActions.SelectedUpdateComplete(selected));
     }
 

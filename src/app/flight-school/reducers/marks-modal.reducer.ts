@@ -27,4 +27,6 @@ export function reducer(state = initialState, action: marksModal.Actions): State
     }
 }
 
-export const getShow = (state: State) => state.show;
+export const getShow = (state: State) => {
+    return state ? state.show : undefined;
+};

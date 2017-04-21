@@ -1,6 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { DialogService } from 'ng2-bootstrap-modal';
+import { StoreModule } from '@ngrx/store';
+import { SitenavComponent } from '../../components';
 import { PageBaseComponent } from './page-base.component';
+
+const state = {
+    count: 0,
+    marks: [],
+    turns: [],
+    marksModal: { show: false },
+    selected: {}
+};
 
 describe('PageBaseComponent', () => {
   let component: PageBaseComponent;
@@ -8,7 +19,12 @@ describe('PageBaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageBaseComponent ]
+      declarations: [ PageBaseComponent, SitenavComponent ],
+      imports: [StoreModule.provideStore({})],
+      providers: [
+        
+        { provide: DialogService, useValue: { } }
+      ]
     })
     .compileComponents();
   }));

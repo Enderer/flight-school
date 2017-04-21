@@ -31,7 +31,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     }
 
     ngOnInit() {
-        this.marks.forEach(m => this.selected[m.id] = true);
+        const marks = this.marks || [];
+        marks.forEach(m => this.selected[m.id] = true);
     }
 
     isSelected(s: number, r: number): boolean {
