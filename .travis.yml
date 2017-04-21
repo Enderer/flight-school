@@ -1,6 +1,8 @@
 language: node_js
 node_js:
   - '6.9'
+notifications:
+  slack: dartbotapp:3zDEQkGfPGcpoqWaUznJqlht
 addons:
 apt:
 before_install:
