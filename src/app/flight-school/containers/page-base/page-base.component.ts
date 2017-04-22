@@ -260,4 +260,10 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         return m1 && m2 && m1.id === m2.id;
     }
 
+    get hasSelected(): boolean {
+        return !!this.selected.first ||
+            !!this.selected.second || 
+            !!this.selected.third;
+    }
+
 }

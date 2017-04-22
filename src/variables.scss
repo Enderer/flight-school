@@ -29,6 +29,7 @@ $body-color:                $gray-light;
 
 $brand-blank:               $gray-dark;
 $brand-faded:               $gray-darker;
+$brand-inverse:             #1c1c1c;
 
 $border-color:              $gray-darkest;
 $text-muted:                #333;
@@ -45,3 +46,8 @@ $navitem-align:             center;
 $nav-link-padding-y:        1.2em;
 $nav-link-active-bg:        rgba(0,0,0,.75);
 
+// Secondary Button
+$btn-secondary-color:            $white !default;
+$btn-secondary-bg:               #242424 !default;
+$btn-secondary-border:           $border-color !default;
+$btn-font-weight:                lighter;

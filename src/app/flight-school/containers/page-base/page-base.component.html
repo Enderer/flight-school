@@ -1,7 +1,8 @@
 
-<div class="container-fluid px-0 w-100 h-100 bg-faded" style="position: absolute">
+<div class="container-fluid px-0 w-100 h-100 bg-wood" style="position: absolute">
     <div class="row h-100 no-gutters">
-        <div class="col-xl-5 h-100 bg-blank">
+
+        <div class="col-xl-6 h-100 bg-blank bg-shadow mx-auto panel-scores">
             
             <div class="d-flex flex-column w-100 h-100" style="position:absolute">
 
@@ -23,13 +24,22 @@
                     </div>
 
 
-                    <div *ngIf="showButtons" class="px-1 my-1">
-                        <button class="btn btn-secondary" (click)="enterClicked()">Enter</button>
-                        <button class="btn btn-danger" (click)="cancelClicked()">C</button>
+                    <div *ngIf="showButtons">
+
+                        <a href="javascript:void(0)" 
+                            style="border-width: 0 0 0 1px;"
+                            class="btn btn-danger btn-cancel p-5 float-right" 
+                            (click)="cancelClicked()">C</a>
+
+                        <a href="javascript:void(0)"
+                            style="border-width: 0 0 0 1px;"
+                            class="btn btn-secondary btn-enter p-5 float-right" 
+                            (click)="enterClicked()">
+                            <span *ngIf="hasSelected">Enter</span>
+                            <span *ngIf="!hasSelected">Miss</span>
+                            </a>
                         <!--<button class="btn btn-secondary"><i class="fa fa-bar-chart"></i></button>-->
                     </div>
-
-
 
                     <!-- Marks -->
                     <div *ngIf="showButtons" class="flex-container" style="flex-grow:1">
@@ -55,8 +65,9 @@
                             </div>
 
                             <!-- Count -->
-                            <div class="score-count flex-cell font-weight-light text-white">
+                            <div class="score-count flex-cell text-white">
                                 <span *ngIf="scores[mark.id]?.count" 
+                                    [class.font-weight-light]="!isActive(mark)"
                                     [class.text-muted]="!isActive(mark)">
                                     {{scores[mark.id]?.count}}
                                 </span>
@@ -77,21 +88,6 @@
 
         </div>
 
-        <div class="col-xl-6 h-100 hidden-lg-down">
-            
-            
-
-
-
-
-
-
-
-
-
-
-
-
-        </div>
+        <!--<div class="col-xl-6 h-100 hidden-lg-down"></div>-->
     </div>
 </div>

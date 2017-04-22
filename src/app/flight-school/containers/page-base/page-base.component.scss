@@ -1,5 +1,7 @@
 @import '../../../../styles';
 
+$cancel-width: 4.1rem;
+
 .list-group-flush .list-group-item {
     flex-grow: 1;
     max-height: 5em;
@@ -7,8 +9,8 @@
     // padding-right: 0;
 }
 
-.score-index { width: 2.7rem; &.bg-faded { background-color: #222; } }
-.score-stats { width: 3.0rem; }
+.score-index { width: 2.7rem; }
+.score-stats { width: $cancel-width; }
 .score-mark  { flex-grow: 1; }
 .score-count { width: 5.5rem; }
 
@@ -48,6 +50,7 @@
 
 .flex-item.closed .flex-cell {
     border-right-color: transparent;
+    opacity: .5;
 }
 
 
@@ -73,4 +76,25 @@
     border-color: $border-color;
     flex-shrink: 0;
     position: relative;
+}
+
+@media (min-width: 1200px) {
+
+    .panel-scores {
+        max-width: 26.5rem;
+    }
+}
+
+.btn-enter { 
+    padding: 1.2rem 0rem !important;
+    width: 8.5rem;
+ }
+
+.btn-cancel { 
+    padding: 1.2rem 0rem !important;
+    width: $cancel-width;
+}
+
+.flex-item:last-child {
+    border-bottom: 1px solid $border-color;
 }
