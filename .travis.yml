@@ -1,8 +1,8 @@
 language: node_js
 node_js:
   - '6.9'
-#notifications:
-#  slack: dartbotapp:3zDEQkGfPGcpoqWaUznJqlht
+notifications:
+  slack: dartbotapp:3zDEQkGfPGcpoqWaUznJqlht
 addons:
 sudo: required
 apt:
