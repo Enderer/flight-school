@@ -19,3 +19,11 @@ before_script:
   - npm install
 script: 
   - npm run ci
+deploy:
+  - provider: pages
+   skip_cleanup: true
+   github_token: $GITHUB_TOKEN
+   local_dir: dist
+   fqdn: flightschool.dartbot.com
+   on:
+     branch: master
