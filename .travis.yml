@@ -20,7 +20,7 @@ before_script:
 script: 
   - npm run ci
 deploy:
-  - provider: pages
+   provider: pages
    skip_cleanup: true
    github_token: $GITHUB_TOKEN
    local_dir: dist
