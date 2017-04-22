@@ -4,6 +4,7 @@ import { DialogService } from 'ng2-bootstrap-modal';
 import { AppComponent } from './app.component';
 import { PageBaseComponent } from './flight-school/containers/page-base/page-base.component';
 import { SitenavComponent } from './flight-school/components';
+import { MarkPipe } from './flight-school/pipes';
 
 const state = {
     count: 0,
@@ -19,7 +20,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         PageBaseComponent,
-        SitenavComponent
+        SitenavComponent,
+        MarkPipe
       ],
       providers: [
         provideStore(state),

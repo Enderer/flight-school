@@ -98,7 +98,7 @@
       "check-type"
     ],
 
-    "directive-selector": [true, "attribute", "fs", "camelCase"],
+    "directive-selector": [true, "attribute", "fs", "kebab-case"],
     "component-selector": [true, "element", "fs", "kebab-case"],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,

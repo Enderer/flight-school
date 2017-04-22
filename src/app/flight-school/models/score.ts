@@ -46,7 +46,7 @@ export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} =
         .value();
 
 
-
+    turns = turns || [];
     turns.forEach(turn => {
 
         const first = turn.target && turn.target.first ?  turn.target.first : null;

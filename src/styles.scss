@@ -5,6 +5,13 @@
 //     // font-size: 1.5em;
 // }
 
+.font-weight-light {
+    font-weight: lighter;
+}
+
+.font-size-lg {
+    font-size: $font-size-lg;
+}
 
 // Force the modal plugin to remove rounded borders
 .modal-content { border-radius: 0; }
@@ -12,7 +19,7 @@
 .modal-dialog.modal-fullheight {
     margin: 0 auto;
     height: 100%;
-    max-width: 42rem;
+    max-width: 26.5rem;
 
     .modal-content {
         height: 100%;
@@ -44,6 +51,11 @@
 .bg-blank {
     background-color: $brand-blank;
 }
+
+.bg-faded {
+    background-color: $brand-faded;
+}
+
 
 // Semi bold text
 // This class marks text with a weight of 600 which is not as
@@ -89,7 +101,7 @@
             line-height: $height;
             min-width: $height;
             text-align: $navitem-align;
-            border: 1px solid #111;
+            border: 1px solid $border-color;
             border-width: 0 0 0 1px;
 
             &:last-child {

@@ -1,6 +1,7 @@
-# FlightSchool
+# Flight School
 
-[![Build Status](https://travis-ci.org/Enderer/flight-school.svg?branch=master)](https://travis-ci.org/Enderer/flight-school)
+[![Build Status](https://travis-ci.org/enderer/flight-school.svg?branch=master)](https://travis-ci.org/enderer/flight-school) 
+[![Dependency Status](https://david-dm.org/enderer/flight-school.svg)](https://david-dm.org/enderer/flight-school)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0.
 

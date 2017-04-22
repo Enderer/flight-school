@@ -2,17 +2,46 @@ $enable-rounded:            false !default;
 $enable-shadows:            false !default;
 $enable-gradients:          false !default;
 
-$text-muted: #aaa;
-$white: #fff;
-$brand-blank: $white;
-$text-semibold-font-weight: 600;
-$spacer-y: .5rem;
+$font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+$font-size-lg:              1.35rem;
 
-$navbar-brand-padding-y: 0;
-$navbar-height: 3.5rem;
-$navbar-padding-y: 0;
-$navitem-padding-y: 0;
-$navitem-align: center;
-$nav-link-padding-y: 1.2em;
-$nav-link-active-bg: rgba(0,0,0,.5);
+$white:  #fff !default;
+$black:  #000 !default;
+$red:    #730000 !default;
+$orange: #f0ad4e !default;
+$yellow: #ffd500 !default;
+$green:  limegreen !default;
+$blue:   #0275d8 !default;
+$teal:   #5bc0de !default;
+$pink:   #ff5b77 !default;
+$purple: #613d7c !default;
+
+$gray-darkest:              #0a0a0a !default;
+$gray-darker:               #131313 !default;
+$gray-dark:                 #191919 !default;
+$gray:                      #464a4c !default;
+$gray-light:                #999 !default;
+$gray-lighter:              #eceeef !default;
+$gray-lightest:             #f7f7f9 !default;
+
+$body-bg:                   $gray-dark;
+$body-color:                $gray-light;
+
+$brand-blank:               $gray-dark;
+$brand-faded:               $gray-darker;
+
+$border-color:              $gray-darkest;
+$text-muted:                #333;
+$white:                     #fff;
+$text-semibold-font-weight: 600;
+$spacer-y:                  .5rem;
+
+$navbar-inverse-color:      #666 !default;
+$navbar-brand-padding-y:    0;
+$navbar-height:             3rem;
+$navbar-padding-y:          0;
+$navitem-padding-y:         0;
+$navitem-align:             center;
+$nav-link-padding-y:        1.2em;
+$nav-link-active-bg:        rgba(0,0,0,.75);
 

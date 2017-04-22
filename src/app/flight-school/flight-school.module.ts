@@ -7,6 +7,7 @@ import { PageBaseComponent } from './containers/page-base/page-base.component';
 import { SitenavComponent, ModalMarksComponent } from './components';
 import { reducer } from './reducers';
 import { MarkPipe } from './pipes';
+import { FontResizerDirective } from './directives/font-resizer.directive';
 
 @NgModule({
   imports: [
@@ -18,11 +19,13 @@ import { MarkPipe } from './pipes';
     PageBaseComponent, 
     SitenavComponent, 
     ModalMarksComponent, 
-    MarkPipe
+    MarkPipe, 
+    FontResizerDirective
   ],
-  entryComponents:[ModalMarksComponent],
+  entryComponents: [ModalMarksComponent],
   exports: [
-    PageBaseComponent
+    PageBaseComponent,
+    FontResizerDirective
   ]
 })
 export class FlightSchoolModule { }
