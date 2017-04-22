@@ -1,10 +1,11 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
   - '6.9'
 notifications:
   slack: dartbotapp:3zDEQkGfPGcpoqWaUznJqlht
 addons:
-sudo: required
 apt:
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
