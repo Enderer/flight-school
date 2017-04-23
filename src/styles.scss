@@ -44,7 +44,10 @@
 // Remove outline styles for buttons.
 // By default buttons have a glow when they are focused on.
 // This looks strange in most cases so we're removing it here.
-.btn { outline:0!important; }
+.btn { 
+    outline:none!important;
+    box-shadow: none!important;
+}
 
 // Add a bg-* class for blank background
 // Applies a white background in default theme

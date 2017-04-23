@@ -16,7 +16,7 @@
                 <div style="flex-grow:1; overflow:hidden;" class="d-flex flex-column">
 
                     <div *ngIf="!showButtons" class="px-1 my-1">
-                        <button class="btn btn-info" (click)="onMarksClicked()">
+                        <button class="btn btn-info" (mousedown)="onMarksClicked()">
                             <i class="fa fa-crosshairs"></i>
                             <span>Marks</span>
                         </button> 
@@ -29,12 +29,12 @@
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
                             class="btn btn-danger btn-cancel p-5 float-right" 
-                            (click)="cancelClicked()">C</a>
+                            (mousedown)="cancelClicked()">C</a>
 
                         <a href="javascript:void(0)"
-                            style="border-width: 0 0 0 1px;"
+                            style="border-width: 0 1px;"
                             class="btn btn-secondary btn-enter p-5 float-right" 
-                            (click)="enterClicked()">
+                            (mousedown)="enterClicked()">
                             <span *ngIf="hasSelected">Enter</span>
                             <span *ngIf="!hasSelected">Miss</span>
                             </a>
@@ -50,31 +50,40 @@
                             <!-- Index -->
                             <div class="flex-cell score-index font-weight-light"
                                 [class.bg-faded]="isTarget(mark)"
-                                [class.first-score]="isFirstTarget(mark)">
-                                <span [class.text-muted]="!isActive(mark)">{{i + 1}}</span>
+                                [class.first-score]="isFirstTarget(mark)"
+                                [class.target-score]="isTarget(mark)"
+                                [class.text-muted]="!isActive(mark)">
+
+                                <span *ngIf="isFirstTarget(mark)">1</span>
+                                <span *ngIf="isSecondTarget(mark)">2</span>
+                                <span *ngIf="isThirdTarget(mark)">3</span>
                             </div>
 
                             <!-- Mark -->
                             <div class="score-mark flex-cell font-weight-light font-size-lg"
                                 [class.bg-success]="isSelected(mark)"
-                                [class.text-white]="isSelected(mark)"
+                                [class.text-white]="isSelected(mark) || isTarget(mark)"
                                 [class.first-score]="isFirstTarget(mark)"
-                                [class.target-score]="isSecondTarget(mark) || isThirdTarget(mark)"
-                                (click)="select(mark)">
+                                [class.target-score]="isTarget(mark)"
+                                (mousedown)="select(mark)">
                                 <span [class.text-muted]="!isActive(mark)">{{mark | mark}}</span>
                             </div>
 
                             <!-- Count -->
-                            <div class="score-count flex-cell text-white">
+                            <div class="score-count font-weight-light flex-cell"
+                                [class.target-score]="isTarget(mark)">
                                 <span *ngIf="scores[mark.id]?.count" 
                                     [class.font-weight-light]="!isActive(mark)"
-                                    [class.text-muted]="!isActive(mark)">
+                                    [class.text-muted]="!isActive(mark)"
+                                    [class.text-white]="isSelected(mark)"
+                                    (mousedown)="select(mark)">
                                     {{scores[mark.id]?.count}}
                                 </span>
                             </div>
                             
                             <!-- Stats --> 
-                            <div class="score-stats flex-cell font-weight-light">
+                            <div class="score-stats flex-cell font-weight-light"
+                                [class.target-score]="isTarget(mark)">
                                 <span *ngIf="scores[mark.id]?.attempts"
                                     [class.text-muted]="!isActive(mark)">
                                     {{scores[mark.id]?.attempts}}

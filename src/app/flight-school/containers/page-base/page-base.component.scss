@@ -9,10 +9,10 @@ $cancel-width: 4.1rem;
     // padding-right: 0;
 }
 
-.score-index { width: 2.7rem; }
+.score-index { width: 2.5rem; }
 .score-stats { width: $cancel-width; }
 .score-mark  { flex-grow: 1; }
-.score-count { width: 5.5rem; }
+.score-count { width: 6.5rem; }
 
 .score-index.first-score { 
     background-color: #fff!important; 
@@ -98,3 +98,10 @@ $cancel-width: 4.1rem;
 .flex-item:last-child {
     border-bottom: 1px solid $border-color;
 }
+
+
+.target-score {
+    background-color: #202020;
+}
+
+.bg-success { font-weight: 300;}
