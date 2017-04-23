@@ -29,6 +29,7 @@
     "@types/lodash": "^4.14.62",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
+    "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "ng2-bootstrap-modal": "^1.0.1",

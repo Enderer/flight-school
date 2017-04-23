@@ -16,7 +16,7 @@
                 <div style="flex-grow:1; overflow:hidden;" class="d-flex flex-column">
 
                     <div *ngIf="!showButtons" class="px-1 my-1">
-                        <button class="btn btn-info" (mousedown)="onMarksClicked()">
+                        <button class="btn btn-info" (click)="onMarksClicked()">
                             <i class="fa fa-crosshairs"></i>
                             <span>Marks</span>
                         </button> 
@@ -29,12 +29,12 @@
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
                             class="btn btn-danger btn-cancel p-5 float-right" 
-                            (mousedown)="cancelClicked()">C</a>
+                            (click)="cancelClicked()">C</a>
 
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
                             class="btn btn-secondary btn-enter p-5 float-right" 
-                            (mousedown)="enterClicked()">
+                            (click)="enterClicked()">
                             <span *ngIf="hasSelected">Enter</span>
                             <span *ngIf="!hasSelected">Miss</span>
                             </a>
@@ -64,7 +64,7 @@
                                 [class.text-white]="isSelected(mark) || isTarget(mark)"
                                 [class.first-score]="isFirstTarget(mark)"
                                 [class.target-score]="isTarget(mark)"
-                                (mousedown)="select(mark)">
+                                (click)="select(mark)">
                                 <span [class.text-muted]="!isActive(mark)">{{mark | mark}}</span>
                             </div>
 
@@ -75,7 +75,7 @@
                                     [class.font-weight-light]="!isActive(mark)"
                                     [class.text-muted]="!isActive(mark)"
                                     [class.text-white]="isSelected(mark)"
-                                    (mousedown)="select(mark)">
+                                    (click)="select(mark)">
                                     {{scores[mark.id]?.count}}
                                 </span>
                             </div>

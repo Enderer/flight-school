@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+declare const FastClick: any;
+
+
 @Component({
   selector: 'fs-app-root',
   templateUrl: './app.component.html',
@@ -7,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app works!';
+
+  constructor() {
+    FastClick.attach(document.body);
+    document.ontouchmove = function(e) { e.preventDefault(); };
+  }
 }
