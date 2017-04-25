@@ -5,6 +5,7 @@ export interface Score {
     id: string;
     count: number;
     attempts: number;
+    misses: number;
     throws: number;
     mark: Mark;
 }
@@ -40,7 +41,8 @@ export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} =
                 count: 0, 
                 mark: m ,
                 attempts: 0,
-                throws: 0
+                throws: 0,
+                misses: 0
             }; 
         })
         .value();
@@ -51,26 +53,42 @@ export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} =
 
         const first = turn.target && turn.target.first ?  turn.target.first : null;
 
-        if (first) { 
-            const firstScore = scores[first.id];
-            if (firstScore) { 
-                firstScore.attempts++;
-            }
-        }
+        let isMiss = true;
 
         turn.throws.forEach((t: Throw) => { 
+            // Get the mark hit on this turn
+            // If not mark was hit don't score anything
             const mark: Mark = t.mark;
             if (mark == null) { return; }
+
+            // Get the score record for this mark
             const score = scores[mark.id];
             if (!score) { return; }
-            score.count++;
 
+            // Mark was hit, increment the score
+            score.count++;
+            isMiss = false;
+
+            // If the second or third target
+            // was hit increment the attempts
             if (first && first.id !== mark.id) {
                 score.attempts++;
             }
-
-
         });
+
+        let firstScore = null;
+
+        if (first) { 
+            firstScore = scores[first.id];
+            if (firstScore) { 
+                firstScore.attempts++; 
+                if (isMiss) {
+                    firstScore.misses++;
+                }
+            }
+
+        }
+
     });
 
     const val: Score[] = _.values(scores).map(s => <Score>s);

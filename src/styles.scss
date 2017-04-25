@@ -49,6 +49,10 @@
     box-shadow: none!important;
 }
 
+.btn-primary:active {
+    background-color: $btn-primary-bg;
+}
+
 // Add a bg-* class for blank background
 // Applies a white background in default theme
 .bg-blank {
@@ -59,15 +63,12 @@
     background-color: $brand-faded;
 }
 
+a.btn:focus {
+    color: $white;
+}
+
 .bg-wood {
     background-image: url(/assets/back_wood.jpg);
-    // background-image: url(/assets/wood/back6.jpg/);
-    // background-image: url(/assets/wood/wood1.jpg/);
-    // background-image: url(/assets/wood/wood2.jpg/);
-    // background-image: url(/assets/wood/wood3.jpg/);
-    // background-image: url(/assets/wood/wood4.jpg/);
-    // background-image: url(/assets/wood/wood5.jpg/);
-    // background-image: url(/assets/wood/wooddark.jpg/);
     background-size: 70rem;
     background-position: center top;
 }

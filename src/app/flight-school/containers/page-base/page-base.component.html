@@ -13,18 +13,20 @@
                     (resetClicked)="onResetClicked()">
                 </fs-sitenav>
 
-                <div style="flex-grow:1; overflow:hidden;" class="d-flex flex-column">
+                <div style="flex-grow:1; overflow:hidden" class="d-flex flex-column">
 
-                    <div *ngIf="!showButtons" class="px-1 my-1">
-                        <button class="btn btn-info" (click)="onMarksClicked()">
+                    <div *ngIf="!showButtons" 
+                        (click)="onMarksClicked()"
+                        class="p-5 no-marks">
+                        <!--<button class="btn btn-info" (click)="onMarksClicked()">
                             <i class="fa fa-crosshairs"></i>
                             <span>Marks</span>
-                        </button> 
-                        <span>Select Marks to begin</span><br>
+                        </button> -->
+                        <span>Select marks to begin</span><br>
                     </div>
 
 
-                    <div *ngIf="showButtons">
+                    <div *ngIf="showButtons" style="background-color: #1e1e1e;">
 
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
@@ -33,7 +35,7 @@
 
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
-                            class="btn btn-secondary btn-enter p-5 float-right" 
+                            class="btn btn-primary btn-enter p-5 float-right" 
                             (click)="enterClicked()">
                             <span *ngIf="hasSelected">Enter</span>
                             <span *ngIf="!hasSelected">Miss</span>
@@ -83,9 +85,9 @@
                             <!-- Stats --> 
                             <div class="score-stats flex-cell font-weight-light"
                                 [class.target-score]="isTarget(mark)">
-                                <span *ngIf="scores[mark.id]?.attempts"
+                                <span *ngIf="scores[mark.id]?.misses"
                                     [class.text-muted]="!isActive(mark)">
-                                    {{scores[mark.id]?.attempts}}
+                                    {{scores[mark.id]?.misses}}
                                 </span>
                             </div>
                         </div>

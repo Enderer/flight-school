@@ -3,7 +3,7 @@ $enable-shadows:            false !default;
 $enable-gradients:          false !default;
 
 $font-family-sans-serif: Roboto, -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-$font-size-lg:              1.35rem;
+$font-size-lg:              1.25rem;
 
 $white:  #fff !default;
 $black:  #000 !default;
@@ -47,7 +47,7 @@ $nav-link-padding-y:        1.2em;
 $nav-link-active-bg:        rgba(0,0,0,.75);
 
 // Secondary Button
-$btn-secondary-color:            $white !default;
-$btn-secondary-bg:               #242424 !default;
-$btn-secondary-border:           $border-color !default;
-$btn-font-weight:                lighter;
+$btn-primary-color:            $white !default;
+$btn-primary-bg:               #242424 !default;
+$btn-primary-border:           $border-color !default;
+$btn-font-weight:               lighter;
