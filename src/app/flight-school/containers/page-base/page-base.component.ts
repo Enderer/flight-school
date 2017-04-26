@@ -16,6 +16,7 @@ import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
 import * as turnsActions from '../../actions/turns.actions';
 
+const emptyTarget = { first: false, second: false, third: false };
 
 @Component({
     selector: 'fs-page-base',
@@ -64,7 +65,6 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.marks$.subscribe(marks => {
             console.debug('PageBase::marks$ success', marks);
             this.marks = marks;
-            const emptyTarget = { first: false, second: false, third: false };
             this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
         });
 
@@ -160,6 +160,14 @@ export class PageBaseComponent implements OnInit, OnDestroy {
 
     cancelClicked(): void {
         console.log('PagePase::cancelClicked');
+
+        // If any marks are selected clear them out
+        if (this.selected && (this.selected.first || this.selected.second || this.selected.third)) {
+                this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
+                return;
+         }
+
+
         const turns = this.turns;
         if (!(turns && turns.length > 0)) { return; }
         const newTurns = turns.slice(0, turns.length - 1);
