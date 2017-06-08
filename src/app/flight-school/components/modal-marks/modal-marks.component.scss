@@ -1,8 +1,22 @@
+@import '../../../../styles';
+
 .list-group-item {
     flex-wrap: nowrap;
+    flex-grow: 1;
 
+    padding: 0;
+    
     > div {
         flex-grow: 1;
         text-align: center;
     }
+}
+
+.cell-divider {
+    border-left: .4rem solid #242424;
+}
+
+.flex-cell {
+    flex-grow: 1;
+    flex-basis: 0;
 }

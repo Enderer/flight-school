@@ -19,7 +19,7 @@
 .modal-dialog.modal-fullheight {
     margin: 0 auto;
     height: 100%;
-    max-width: 26.5rem;
+    max-width: 27rem;
 
     .modal-content {
         height: 100%;
@@ -174,3 +174,31 @@ a.btn:focus {
 .navbar {
     @include navbar-height-variant($navbar-height);
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.flex-item {
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+    max-height: 5.85em;
+    flex-basis: auto;
+}
+.flex-cell {
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;
+    border-width: 1px 1px 0px 0px;
+    border-style: solid;
+    border-color: $border-color;
+    flex-shrink: 0;
+    position: relative;
+    // flex-grow: 1;
+    // flex-basis: 0;
+}
+
+@include text-emphasis-variant('.text-danger', red);

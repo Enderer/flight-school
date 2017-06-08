@@ -55,28 +55,7 @@ $cancel-width: 4.1rem;
 
 
 
-.flex-container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-.flex-item {
-    display: flex;
-    flex-grow: 1;
-    align-items: stretch;
-    max-height: 5.85em;
-}
-.flex-cell {
-    display: flex;
-    align-items: center;
-    align-self: stretch;
-    justify-content: center;
-    border-width: 1px 1px 0px 0px;
-    border-style: solid;
-    border-color: $border-color;
-    flex-shrink: 0;
-    position: relative;
-}
+
 
 @media (min-width: 1200px) {
 
@@ -86,12 +65,12 @@ $cancel-width: 4.1rem;
 }
 
 .btn-enter { 
-    padding: 1.2rem 0rem !important;
-    width: 8.5rem;
- }
+    padding: 1rem 0rem !important;
+    width: 6.5rem;
+}
 
 .btn-cancel { 
-    padding: 1.2rem 0rem !important;
+    padding: 1rem 0rem !important;
     width: $cancel-width;
 }
 
@@ -117,4 +96,11 @@ $cancel-width: 4.1rem;
 
 .target-score.score-mark {
     font-weight: 300;
+}
+
+
+.flex-container-scores .flex-cell {
+    // flex-basis: auto;
+    // flex-shrink: 0;
+    // flex-grow: 1;
 }

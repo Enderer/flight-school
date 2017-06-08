@@ -33,17 +33,18 @@ $brand-inverse:             #1c1c1c;
 
 $border-color:              $gray-darkest;
 $text-muted:                #333;
+$text-danger: red;
 $white:                     #fff;
 $text-semibold-font-weight: 600;
 $spacer-y:                  .5rem;
 
 $navbar-inverse-color:      #666 !default;
 $navbar-brand-padding-y:    0;
-$navbar-height:             3rem;
+$navbar-height:             2.85rem;
 $navbar-padding-y:          0;
 $navitem-padding-y:         0;
 $navitem-align:             center;
-$nav-link-padding-y:        1.2em;
+$nav-link-padding-y:        .8em;
 $nav-link-active-bg:        rgba(0,0,0,.75);
 
 // Secondary Button
@@ -51,3 +52,13 @@ $btn-primary-color:            $white !default;
 $btn-primary-bg:               #242424 !default;
 $btn-primary-border:           $border-color !default;
 $btn-font-weight:               lighter;
+
+
+// Modals
+$modal-content-bg:               $body-bg !default;
+// $modal-content-border-color:     rgba($black,.2) !default;
+// $modal-content-border-width:     $border-width !default;
+// $modal-content-xs-box-shadow:    0 3px 9px rgba($black,.5) !default;
+// $modal-content-sm-up-box-shadow: 0 5px 15px rgba($black,.5) !default;
+
+$list-group-bg:                 $body-bg !default;

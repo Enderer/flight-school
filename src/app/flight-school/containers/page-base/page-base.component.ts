@@ -156,6 +156,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     onResetClicked(): void {
         console.debug('PageBase::onResetClicked');
         this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
+        this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
     }
 
     cancelClicked(): void {

@@ -17,7 +17,7 @@
 
                     <div *ngIf="!showButtons" 
                         (click)="onMarksClicked()"
-                        class="p-5 no-marks">
+                        class="p-5 mt-5 no-marks">
                         <!--<button class="btn btn-info" (click)="onMarksClicked()">
                             <i class="fa fa-crosshairs"></i>
                             <span>Marks</span>
@@ -30,12 +30,12 @@
 
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
-                            class="btn btn-danger btn-cancel p-5 float-right" 
+                            class="btn btn-danger btn-cancel p-3 float-right" 
                             (click)="cancelClicked()">C</a>
 
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
-                            class="btn btn-primary btn-enter p-5 float-right" 
+                            class="btn btn-primary btn-enter p-3 float-right" 
                             (click)="enterClicked()">
                             <span *ngIf="hasSelected">Enter</span>
                             <span *ngIf="!hasSelected">Miss</span>
@@ -44,7 +44,7 @@
                     </div>
 
                     <!-- Marks -->
-                    <div *ngIf="showButtons" class="flex-container" style="flex-grow:1">
+                    <div *ngIf="showButtons" class="flex-container flex-container-scores" style="flex-grow:1">
                         <div class="flex-item" *ngFor="let mark of marks; let i = index;"
                             [class.bg-faded]="!isActive(mark)"
                             [class.closed]="!isActive(mark)">
