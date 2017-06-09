@@ -47,6 +47,9 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     activeMarks$: Observable<Mark[]>;
     activeMarks: {[id: string]: Mark};
 
+    isComplete$: Observable<boolean>;
+    isComplete: boolean;
+
     constructor(
         private store: Store<fromRoot.State>,
         private dialogService: DialogService) {
@@ -59,6 +62,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.target$ = this.store.select(fromRoot.getNextTarget);
         this.selected$ = this.store.select(fromRoot.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
         this.activeMarks$ = this.store.select(fromRoot.getActiveMarks);
+        this.isComplete$ = this.store.select(fromRoot.getIsComplete);
      }
 
     ngOnInit() {
@@ -82,6 +86,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.target$.subscribe(target => this.target = target);
         this.selected$.subscribe(selected => this.selected = selected);
         this.activeMarks$.subscribe(activeMarks => this.activeMarks = _.keyBy(activeMarks, m => m.id));
+        this.isComplete$.subscribe(isComplete => this.isComplete = isComplete);
     }
 
     ngOnDestroy() {    }
@@ -189,6 +194,10 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         if (mark == null || this.activeMarks == null) { return false; }
         const active = !!this.activeMarks[mark.id];
         return active;
+    }
+
+    isClosed(mark: Mark): boolean {
+        return !this.isActive(mark) && !this.isComplete;
     }
 
     get showButtons(): boolean {

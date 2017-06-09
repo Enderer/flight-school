@@ -5,7 +5,6 @@
         <div class="col-xl-6 h-100 bg-blank bg-shadow mx-auto panel-scores">
             
             <div class="d-flex flex-column w-100 h-100" style="position:absolute">
-
                 <fs-sitenav 
                     [count]="count$ | async" 
                     (countChanged)="onCountChanged($event)" 
@@ -36,9 +35,15 @@
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
                             class="btn btn-primary btn-enter p-3 float-right" 
+                            [class.disabled]="isComplete"
+                            [class.bg-blank]="isComplete"
                             (click)="enterClicked()">
-                            <span *ngIf="hasSelected">Enter</span>
-                            <span *ngIf="!hasSelected">Miss</span>
+                            <span *ngIf="hasSelected && !isComplete">Enter</span>
+                            <span *ngIf="!hasSelected && !isComplete">Miss</span>
+                            <span *ngIf="isComplete">
+                                Done
+                                <i class="fa fa-check"></i>
+                            </span>
                             </a>
                         <!--<button class="btn btn-secondary"><i class="fa fa-bar-chart"></i></button>-->
                     </div>
@@ -46,14 +51,14 @@
                     <!-- Marks -->
                     <div *ngIf="showButtons" class="flex-container flex-container-scores" style="flex-grow:1">
                         <div class="flex-item" *ngFor="let mark of marks; let i = index;"
-                            [class.bg-faded]="!isActive(mark)"
-                            [class.closed]="!isActive(mark)">
+                            [class.bg-faded]="isClosed(mark)"
+                            [class.closed]="isClosed(mark)">
 
                             <!-- Index -->
                             <div class="flex-cell score-index font-weight-light"
                                 [class.first-score]="isFirstTarget(mark)"
                                 [class.target-score]="isTarget(mark)"
-                                [class.text-muted]="!isActive(mark)">
+                                [class.text-muted]="isClosed(mark)">
 
                                 <span *ngIf="isFirstTarget(mark)">1</span>
                                 <span *ngIf="isSecondTarget(mark)">2</span>
@@ -67,7 +72,7 @@
                                 [class.first-score]="isFirstTarget(mark)"
                                 [class.target-score]="isTarget(mark)"
                                 (click)="select(mark)">
-                                <span [class.text-muted]="!isActive(mark)">{{mark | mark}}</span>
+                                <span [class.text-muted]="isClosed(mark)">{{mark | mark}}</span>
                             </div>
 
                             <!-- Count -->
@@ -75,7 +80,7 @@
                                 [class.target-score]="isTarget(mark)">
                                 <span *ngIf="scores[mark.id]?.count" 
                                     [class.font-weight-light]="!isActive(mark)"
-                                    [class.text-muted]="!isActive(mark)"
+                                    [class.text-muted]="isClosed(mark)"
                                     [class.text-white]="isSelected(mark)"
                                     (click)="select(mark)">
                                     {{scores[mark.id]?.count}}
@@ -86,7 +91,7 @@
                             <div class="score-stats flex-cell font-weight-light"
                                 [class.target-score]="isTarget(mark)">
                                 <span *ngIf="scores[mark.id]?.misses"
-                                    [class.text-muted]="!isActive(mark)">
+                                    [class.text-muted]="isClosed(mark)">
                                     {{scores[mark.id]?.misses}}
                                 </span>
                             </div>

@@ -66,7 +66,8 @@ $cancel-width: 4.1rem;
 
 .btn-enter { 
     padding: 1rem 0rem !important;
-    width: 6.5rem;
+    width: 7.5rem;
+    background: #242424!important;
 }
 
 .btn-cancel { 
@@ -103,4 +104,9 @@ $cancel-width: 4.1rem;
     // flex-basis: auto;
     // flex-shrink: 0;
     // flex-grow: 1;
+}
+
+
+.btn.bg-blank {
+    background-color: #1e1e1e!important;
 }
