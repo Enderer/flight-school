@@ -15,7 +15,7 @@
 
     <ul class="navbar-nav">
         <li class="nav-item" style="min-width:4rem">
-            <a class="nav-link" (click)="refreshClicked()" href="javascript:void(0)">
+            <a class="nav-link" (tap)="refreshClicked()" href="javascript:void(0)">
                 <i class="fa fa-refresh"></i>
             </a>
         </li>
@@ -25,7 +25,7 @@
 
         <li class="nav-item ml-auto" style="border-left:0; flex:1;">
             <a class="nav-link px-4"
-                (click)="confirm()" 
+                (tap)="confirm()" 
                 href="javascript:void(0)">
                 <span>Save</span>
                 <!--<i class="ml-1 fa fa-lg fa-external-link"></i>-->
@@ -36,7 +36,7 @@
         <li class="nav-item dropdown"
           style="text-align:center; border-right:0;">
             <a class="nav-link"
-              (click)="close()"
+              (tap)="close()"
               href="javascript:void(0)">
                 <i class="fa fa-close"></i>
             </a>
@@ -44,101 +44,98 @@
     </ul>
    
 </nav>
-
-
-     
         
         <div class="flex-container h-100 font-weight-light">
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(20, 1) }" (click)="markClicked(20, 1)">20</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(20, 3) }" (click)="markClicked(20, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(20, 2) }" (click)="markClicked(20, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(10, 1) }" (click)="markClicked(10, 1)">10</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(10, 3) }" (click)="markClicked(10, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(10, 2) }" (click)="markClicked(10, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(20, 1) }" (tap)="markClicked(20, 1)">20</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(20, 3) }" (tap)="markClicked(20, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(20, 2) }" (tap)="markClicked(20, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(10, 1) }" (tap)="markClicked(10, 1)">10</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(10, 3) }" (tap)="markClicked(10, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(10, 2) }" (tap)="markClicked(10, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(19, 1) }" (click)="markClicked(19, 1)">19</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(19, 3) }" (click)="markClicked(19, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(19, 2) }" (click)="markClicked(19, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(9, 1) }" (click)="markClicked(9, 1)">9</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(9, 3) }" (click)="markClicked(9, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(9, 2) }" (click)="markClicked(9, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(19, 1) }" (tap)="markClicked(19, 1)">19</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(19, 3) }" (tap)="markClicked(19, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(19, 2) }" (tap)="markClicked(19, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(9, 1) }" (tap)="markClicked(9, 1)">9</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(9, 3) }" (tap)="markClicked(9, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(9, 2) }" (tap)="markClicked(9, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(18, 1) }" (click)="markClicked(18, 1)">18</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(18, 3) }" (click)="markClicked(18, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(18, 2) }" (click)="markClicked(18, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(8, 1) }" (click)="markClicked(8, 1)">8</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(8, 3) }" (click)="markClicked(8, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(8, 2) }" (click)="markClicked(8, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(18, 1) }" (tap)="markClicked(18, 1)">18</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(18, 3) }" (tap)="markClicked(18, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(18, 2) }" (tap)="markClicked(18, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(8, 1) }" (tap)="markClicked(8, 1)">8</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(8, 3) }" (tap)="markClicked(8, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(8, 2) }" (tap)="markClicked(8, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(17, 1) }" (click)="markClicked(17, 1)">17</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(17, 3) }" (click)="markClicked(17, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(17, 2) }" (click)="markClicked(17, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(7, 1) }" (click)="markClicked(7, 1)">7</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(7, 3) }" (click)="markClicked(7, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(7, 2) }" (click)="markClicked(7, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(17, 1) }" (tap)="markClicked(17, 1)">17</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(17, 3) }" (tap)="markClicked(17, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(17, 2) }" (tap)="markClicked(17, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(7, 1) }" (tap)="markClicked(7, 1)">7</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(7, 3) }" (tap)="markClicked(7, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(7, 2) }" (tap)="markClicked(7, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(16, 1) }" (click)="markClicked(16, 1)">16</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(16, 3) }" (click)="markClicked(16, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(16, 2) }" (click)="markClicked(16, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(6, 1) }" (click)="markClicked(6, 1)">6</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(6, 3) }" (click)="markClicked(6, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(6, 2) }" (click)="markClicked(6, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(16, 1) }" (tap)="markClicked(16, 1)">16</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(16, 3) }" (tap)="markClicked(16, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(16, 2) }" (tap)="markClicked(16, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(6, 1) }" (tap)="markClicked(6, 1)">6</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(6, 3) }" (tap)="markClicked(6, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(6, 2) }" (tap)="markClicked(6, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(15, 1) }" (click)="markClicked(15, 1)">15</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(15, 3) }" (click)="markClicked(15, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(15, 2) }" (click)="markClicked(15, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(5, 1) }" (click)="markClicked(5, 1)">5</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(5, 3) }" (click)="markClicked(5, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(5, 2) }" (click)="markClicked(5, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(15, 1) }" (tap)="markClicked(15, 1)">15</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(15, 3) }" (tap)="markClicked(15, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(15, 2) }" (tap)="markClicked(15, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(5, 1) }" (tap)="markClicked(5, 1)">5</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(5, 3) }" (tap)="markClicked(5, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(5, 2) }" (tap)="markClicked(5, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(14, 1) }" (click)="markClicked(14, 1)">14</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(14, 3) }" (click)="markClicked(14, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(14, 2) }" (click)="markClicked(14, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(4, 1) }" (click)="markClicked(4, 1)">4</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(4, 3) }" (click)="markClicked(4, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(4, 2) }" (click)="markClicked(4, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(14, 1) }" (tap)="markClicked(14, 1)">14</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(14, 3) }" (tap)="markClicked(14, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(14, 2) }" (tap)="markClicked(14, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(4, 1) }" (tap)="markClicked(4, 1)">4</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(4, 3) }" (tap)="markClicked(4, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(4, 2) }" (tap)="markClicked(4, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(13, 1) }" (click)="markClicked(13, 1)">13</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(13, 3) }" (click)="markClicked(13, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(13, 2) }" (click)="markClicked(13, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(3, 1) }" (click)="markClicked(3, 1)">3</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(3, 3) }" (click)="markClicked(3, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(3, 2) }" (click)="markClicked(3, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(13, 1) }" (tap)="markClicked(13, 1)">13</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(13, 3) }" (tap)="markClicked(13, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(13, 2) }" (tap)="markClicked(13, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(3, 1) }" (tap)="markClicked(3, 1)">3</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(3, 3) }" (tap)="markClicked(3, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(3, 2) }" (tap)="markClicked(3, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(12, 1) }" (click)="markClicked(12, 1)">12</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(12, 3) }" (click)="markClicked(12, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(12, 2) }" (click)="markClicked(12, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(2, 1) }" (click)="markClicked(2, 1)">2</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(2, 3) }" (click)="markClicked(2, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(2, 2) }" (click)="markClicked(2, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(12, 1) }" (tap)="markClicked(12, 1)">12</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(12, 3) }" (tap)="markClicked(12, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(12, 2) }" (tap)="markClicked(12, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(2, 1) }" (tap)="markClicked(2, 1)">2</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(2, 3) }" (tap)="markClicked(2, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(2, 2) }" (tap)="markClicked(2, 2)">D</div>
             </div>
             <div class="flex-item">
-              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(11, 1) }" (click)="markClicked(11, 1)">11</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(11, 3) }" (click)="markClicked(11, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(11, 2) }" (click)="markClicked(11, 2)">D</div>
-              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(1, 1) }" (click)="markClicked(1, 1)">1</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 3) }" (click)="markClicked(1, 3)">T</div>
-              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 2) }" (click)="markClicked(1, 2)">D</div>
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(11, 1) }" (tap)="markClicked(11, 1)">11</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(11, 3) }" (tap)="markClicked(11, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(11, 2) }" (tap)="markClicked(11, 2)">D</div>
+              <div class="flex-cell bg-faded cell-divider" [ngClass]="{ 'bg-success text-white': isSelected(1, 1) }" (tap)="markClicked(1, 1)">1</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 3) }" (tap)="markClicked(1, 3)">T</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 2) }" (tap)="markClicked(1, 2)">D</div>
             </div>
         </div>
 
 
       
       <!--<div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="refreshClicked()">
+        <button type="button" class="btn btn-secondary" (tap)="refreshClicked()">
           <i class="fa fa-refresh"></i>
         </button>
-        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="confirm()">Select Marks</button>
+        <button type="button" class="btn btn-secondary" (tap)="close()">Cancel</button>
+        <button type="button" class="btn btn-primary" (tap)="confirm()">Select Marks</button>
       </div>-->
     </div>
   </div>

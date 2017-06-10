@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-declare const FastClick: any;
+// declare const FastClick: any;
 
 
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent {
   title = 'app works!';
 
   constructor() {
-    FastClick.attach(document.body);
+    // FastClick.attach(document.body);
     document.ontouchmove = function(e) { e.preventDefault(); };
   }
 }

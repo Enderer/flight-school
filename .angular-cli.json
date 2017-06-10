@@ -22,7 +22,7 @@
         "styles.scss"
       ],
       "scripts": [
-          "../node_modules/fastclick/lib/fastclick.js",
+          "../node_modules/hammerjs/hammer.js",
           "../node_modules/jquery/dist/jquery.slim.js",
           "../node_modules/tether/dist/js/tether.js",
           "../node_modules/bootstrap/dist/js/bootstrap.js"
