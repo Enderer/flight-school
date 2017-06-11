@@ -1,3 +1,7 @@
 .dropdown-toggle::after {
     margin-left: 0;
 }
+
+.dropdown-item.bg-faded {
+    background-color: #ddd;
+}

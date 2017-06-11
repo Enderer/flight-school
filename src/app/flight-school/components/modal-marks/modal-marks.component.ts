@@ -45,12 +45,15 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         return selected;
     }
     
-    refreshClicked() {
+    refreshClicked(event: Event) {
         console.debug('ModalMarks::refeshClicked');
-        this.selected = {};
+        this.selected = {};        
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
 
-    markClicked(sector: number, ring: number) {
+    markClicked(sector: number, ring: number, $event) {
+        console.debug('ModalMarksComponent::markClicked', sector, ring, $event);
         const mark = this.lookup[sector][ring];
         const id = mark.id;
         if (this.selected[id]) { 
@@ -58,13 +61,14 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         } else {
             this.selected[id] = this.num++;
         }
-        console.debug('ModalMarks::markClicked selected', sector, ring, this.selected[id]);
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
 
     /**
      * User has clicked the save button. Return the list of selected marks
      */
-    confirm() {
+    confirm($event: Event) {
         console.debug('ModalMarks::confirm');
 
         // Get the marks that have been selected by the user and return them
@@ -81,6 +85,16 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         // Set the marks and close the form
         this.result = selected;
         this.close();
+        $event.stopImmediatePropagation();
+        $event.preventDefault();
+    }
+
+
+    closeClicked(event: Event): void {
+        console.debug('MarksModalComponent::closeClicked');
+        this.close();
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
 
     get count(): number {

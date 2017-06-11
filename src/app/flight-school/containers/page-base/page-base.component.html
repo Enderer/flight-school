@@ -8,19 +8,16 @@
                 <fs-sitenav 
                     [count]="count$ | async" 
                     (countChanged)="onCountChanged($event)" 
-                    (marksClicked)="onMarksClicked()"
+                    (marksClicked)="onMarksClicked($event)"
                     (resetClicked)="onResetClicked()">
                 </fs-sitenav>
 
                 <div style="flex-grow:1; overflow:hidden" class="d-flex flex-column">
 
                     <div *ngIf="!showButtons" 
-                        (tap)="onMarksClicked()"
+                        (mousedown)="onMarksClicked($event)"
+                        (touchstart)="onMarksClicked($event)"
                         class="p-5 mt-5 no-marks">
-                        <!--<button class="btn btn-info" (tap)="onMarksClicked()">
-                            <i class="fa fa-crosshairs"></i>
-                            <span>Marks</span>
-                        </button> -->
                         <span>Select marks to begin</span><br>
                     </div>
 
@@ -30,14 +27,16 @@
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
                             class="btn btn-danger btn-cancel p-3 float-right" 
-                            (tap)="cancelClicked()">C</a>
+                            (mousedown)="cancelClicked($event)"
+                            (touchstart)="cancelClicked($event)">C</a>
 
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
                             class="btn btn-primary btn-enter p-3 float-right" 
                             [class.disabled]="isComplete"
                             [class.bg-blank]="isComplete"
-                            (tap)="enterClicked()">
+                            (mousedown)="enterClicked($event)"
+                            (touchstart)="enterClicked($event)">
                             <span *ngIf="hasSelected && !isComplete">Enter</span>
                             <span *ngIf="!hasSelected && !isComplete">Miss</span>
                             <span *ngIf="isComplete">
@@ -71,7 +70,8 @@
                                 [class.text-white]="isSelected(mark) || isTarget(mark)"
                                 [class.first-score]="isFirstTarget(mark)"
                                 [class.target-score]="isTarget(mark)"
-                                (tap)="select(mark)">
+                                (mousedown)="select(mark, $event)"
+                                (touchstart)="select(mark, $event)">
                                 <span [class.text-muted]="isClosed(mark)">{{mark | mark}}</span>
                             </div>
 
@@ -83,7 +83,8 @@
                                     [class.font-weight-light]="!isActive(mark)"
                                     [class.text-muted]="isClosed(mark)"
                                     [class.text-white]="isSelected(mark)"
-                                    (tap)="select(mark)">
+                                    (mousedown)="select(mark, $event)"
+                                    (touchstart)="select(mark, $event)">
                                     {{scores[mark.id]?.count}}
                                 </span>
                             </div>

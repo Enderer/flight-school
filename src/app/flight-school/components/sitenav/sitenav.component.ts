@@ -17,19 +17,22 @@ export class SitenavComponent implements OnInit {
 
     ngOnInit() {}
 
-    onCountClicked(count: number): void {
+    onCountClicked(count: number, event: Event): void {
         console.log('SitenavComponent::onCountClicked', count);
         this.countChanged.emit(count);
     }
 
-    onMarksClicked() {
+    onMarksClicked(event: Event) {
         console.debug('SitenavComponent::onMarksClicked');
         this.marksClicked.emit();
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
 
-    onResetClicked(): void {
+    onResetClicked(event: Event): void {
         console.debug('SitenavComponent::resetClicked');
         this.resetClicked.emit();
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
-    
 }

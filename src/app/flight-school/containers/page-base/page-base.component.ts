@@ -97,12 +97,18 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(action);
     }
 
-    onMarksClicked() {
+    onMarksClicked(event: Event) {
+        console.debug('PageBaseComponent::onMarksClicked');
         this.store.dispatch(new marksModalActions.Show());
+        if (event == null) { return; }
+        event.stopImmediatePropagation();
+        event.preventDefault();
     }
 
-    select(mark: Mark): void {
+    select(mark: Mark, event: Event): void {
         console.debug('PageBase::select', mark);
+        event.stopImmediatePropagation();
+        event.preventDefault();
 
         if (!this.isTarget(mark)) { return; }
 
@@ -137,7 +143,11 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new selectedActions.SelectedUpdateComplete(selected));
     }
 
-    enterClicked(): void {
+    enterClicked(event: Event): void {
+        console.debug('PageBaseComponent::enterClicked');
+        event.stopImmediatePropagation();
+        event.preventDefault();
+
         const turn = new Turn();
         turn.start = this.target.first;
         turn.target = this.target;
@@ -164,8 +174,11 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
     }
 
-    cancelClicked(): void {
+    cancelClicked(event: Event): void {
         console.log('PagePase::cancelClicked');
+        event.stopImmediatePropagation();
+        event.preventDefault();
+
 
         // If any marks are selected clear them out
         if (this.selected && (this.selected.first || this.selected.second || this.selected.third)) {
