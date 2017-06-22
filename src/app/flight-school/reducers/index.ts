@@ -81,7 +81,7 @@ export const getActiveMarks = createSelector(getScore, getCount, (scores, count)
 });
 
 // Target
-export const getNextTarget = createSelector(getActiveMarks, getTurns, getTarget);
+export const getNextTarget = createSelector(getMarks, getTurns, getCount, getTarget);
 
 export const getIsComplete = createSelector(getMarks, getScore, getCount, (marks: Mark[], scores, count: number) => {
     const remaining = _.values(scores).filter(score => score.count < count);

@@ -113,7 +113,100 @@ export const emptyTarget: Target = {
     third: null
 };
 
-export const getTarget = (marks: Mark[], turns: Turn[]): Target => {
+const nextTarget = (marks: Mark[]): Target => {
+    const target = new Target();
+    target.first = marks[0] || null;
+    target.second = marks[1] || null;
+    target.third = marks[2] || null;
+    return target;
+};
+
+const getLastHit = (turn: Turn): Mark => {
+    const lastHit = _(turn.throws).filter(t => !!t.mark).last();
+    let mark = turn.start;
+    if (lastHit) { mark = lastHit.mark; }
+    return mark;
+};
+
+const orderMarks = (marks: Mark[], mark: Mark): Mark[] => {
+    marks = marks.concat([]);
+    let i = _.findIndex(marks, m => m.id === mark.id);
+    i = Math.max(i, 0);
+    i++;
+    const reordered = marks.concat(marks.splice(0, i));
+    return reordered;
+};
+
+const activeMarks = (marks: Mark[], turns: Turn[], count: number): Mark[] => {
+
+    const hits = _(turns)
+        .map(t => t.throws)
+        .flatten()
+        .map((t: Throw) => t.mark)
+        .compact()
+        .map(m => m.id)
+        .countBy()
+        .value();
+    
+    return marks.filter(m => {
+        return !(hits[m.id] >= count);
+    });
+
+};
+
+export const getTarget = (marks: Mark[], turns: Turn[], count: number): Target => {
+
+    const lastTurn = _.last(turns);
+    if (lastTurn == null) { return nextTarget(marks); }
+
+    const lastMark = getLastHit(lastTurn);
+    const ordered = orderMarks(marks, lastMark);
+    const active = activeMarks(ordered, turns, count);
+    const target = nextTarget(active);
+    return target;
+};
+
+
+
+export const getTarget2 = (marks: Mark[], turns: Turn[], count: number): Target => {
+
+    interface ScoreMap {[id: string]: number; };
+
+    const hits = _(turns)
+        .map(t => t.throws)
+        .flatten()
+        .filter((t: Throw) => t.mark)
+        .value();
+
+    const scores = hits.reduce<ScoreMap>((prev, current: Throw, i, t) => {
+        prev[current.mark.id] = prev[current.mark.id] || 0;
+        prev[current.mark.id]++;
+        return prev;
+    }, {});
+
+    const lastTurn = _.last(turns);
+    let t = 0;
+
+    if (lastTurn) {
+        t = _.findIndex(marks, m => lastTurn.start);
+        const lastThrow = _(lastTurn.throws).filter(th => !!th.mark).last();
+        if (lastThrow && lastThrow.mark) {
+            t = _.findIndex(marks, m => lastThrow.mark);
+        }
+    }
+    t = Math.max(t, 1);
+    const ms = _.clone(marks);
+    const nextMarks1 = ms.concat(ms.splice(0, t));
+    const nextMarks = nextMarks1.filter(mark => !(scores[mark.id] >= count));
+    const nextTarget = new Target();
+    nextTarget.first = nextMarks[0] || null;
+    nextTarget.second = nextMarks[1] || null;
+    nextTarget.third = nextMarks[2] || null;
+    return nextTarget;
+};
+
+export const getTarget1 = (marks: Mark[], turns: Turn[]): Target => {
+
     console.log('getTarget', marks, turns);
 
     if (!(marks && marks.length)) { return emptyTarget; }
