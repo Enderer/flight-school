@@ -114,6 +114,7 @@ export const emptyTarget: Target = {
 };
 
 const nextTarget = (marks: Mark[]): Target => {
+    if (marks == null) { return emptyTarget; }
     const target = new Target();
     target.first = marks[0] || null;
     target.second = marks[1] || null;
