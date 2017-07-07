@@ -9,7 +9,7 @@
     "test": "ng test --watch false",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "manifest-create": "appcache-manifest \"dist/**/*.{html,css,js,ico,jpg,png}\" -o dist/cache.manifest --postfile postfile.manifest",
+    "manifest-create": "appcache-manifest \"dist/**/*.{html,css,js,ico,jpg,png,eot,woff2,woff,ttf}\" -o dist/cache.manifest --postfile postfile.manifest",
     "manifest-fix": "node build/add-manifest",
     "manifest": "npm run manifest-create && npm run manifest-fix",
     "ci": "npm run lint && npm run test && npm run build && npm run manifest"
@@ -39,6 +39,7 @@
     "ngrx-store-freeze": "^0.1.9",
     "ngrx-store-localstorage": "0.1.5",
     "reselect": "^3.0.0",
+    "roboto-fontface": "^0.7.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },
