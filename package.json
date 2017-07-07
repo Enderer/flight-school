@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "manifest-create": "appcache-manifest \"dist/**/*.{html,css,js,ico,jpg,png}\" -o dist/cache.manifest --postfile postfile.manifest",
-    "manifest-fix": "appcache-manifest-fixer dist/index.html -o dist/index_manifest.html -m cache.manifest",
+    "manifest-fix": "node build/add-manifest",
     "manifest": "npm run manifest-create && npm run manifest-fix",
     "ci": "npm run lint && npm run test && npm run build && npm run manifest"
   },
