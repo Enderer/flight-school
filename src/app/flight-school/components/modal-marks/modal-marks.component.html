@@ -125,6 +125,14 @@
               <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 3) }" (mousedown)="markClicked(1, 3, $event)" (touchstart)="markClicked(1, 3, $event)">T</div>
               <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(1, 2) }" (mousedown)="markClicked(1, 2, $event)" (touchstart)="markClicked(1, 2, $event)">D</div>
             </div>
+            <div class="flex-item">
+              <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(25, 1) }" (mousedown)="markClicked(25, 1, $event)" (touchstart)="markClicked(25, 1, $event)">Bull</div>
+              <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(25, 2) }" (mousedown)="markClicked(25, 2, $event)" (touchstart)="markClicked(25, 2, $event)">DB</div>
+              <div class="flex-cell"></div>
+              <div class="flex-cell cell-divider"></div>
+              <div class="flex-cell"></div>
+              <div class="flex-cell"></div>
+            </div>
         </div>
 
 

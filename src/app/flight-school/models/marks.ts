@@ -13,6 +13,9 @@ sectors.forEach(s => rings.forEach(r => {
     });
 }));
 
+marks.push({ id: `S${25}R${1}`, s: 25, r: 1 });
+marks.push({ id: `S${25}R${2}`, s: 25, r: 2 });
+
 export const byId = _.keyBy(marks, m => m.id);
 export const bySector = _.groupBy(marks, m => m.s);
 export const byRing = _.groupBy(marks, m => m.r);
