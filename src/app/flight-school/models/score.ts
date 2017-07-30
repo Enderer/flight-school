@@ -12,14 +12,17 @@ export interface Score {
 
 
 export class Turn {
-    /** List of marks hit this turn */
-    throws: Throw[] = [];
-
-    /** First mark to be hit at the start of the turn */
-    start: Mark;
-
-    /** Marks thrown at this turn */
-    target: Target;
+    /**
+     * Constructor
+     * @param {Throw[]} throws - List of marks hit this turn
+     * @param {Mark} start  - First mark to be hit at the start of the turn
+     * @param {Target} target - Marks thrown at this turn
+     */
+    constructor(
+        public throws: Throw[] = [],
+        public start: Mark = null,
+        public target: Target = null
+    ) {}
 }
 
 /** A single throw by a player */
@@ -96,9 +99,11 @@ export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} =
 };
 
 export class Target {
-    first: Mark;
-    second: Mark;
-    third: Mark;
+    constructor(
+        public first: Mark = null,
+        public second: Mark = null,
+        public third: Mark = null
+    ) {}
 }
 
 export class Selected {

@@ -39,7 +39,10 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
 
     /** Returns the number of marks that have been selected */
     get count(): number {
-        const selected = marks.filter(m => this.selected[m.id] >= 0);
+        const selected = marks.filter(m => {
+            const isSelected = this.selected[m.id] != null;
+            return isSelected;
+        });
         return selected.length || 0;
     }
 
@@ -56,7 +59,7 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     }
     
     /** Reset button was clicked. Clear all selected marks */
-    refreshClicked() {
+    refreshClicked(event: MouseEvent) {
         console.debug('ModalMarks::refeshClicked');
         this.selected = {};        
         event.stopImmediatePropagation();
@@ -71,7 +74,7 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         console.debug('ModalMarks::markClicked', sector, ring, $event);
         const mark = this.lookup[sector][ring];
         const id = mark.id;
-        if (this.selected[id]) { 
+        if (this.selected[id] != null) { 
             this.selected[id] = null;
         } else {
             this.selected[id] = this.num++;
@@ -93,7 +96,7 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         const indexed = _.map(marks, m => {
             return { i: this.selected[m.id], m };
         });
-        const filtered =  _.filter(indexed, s => s.i >= 0);
+        const filtered =  _.filter(indexed, s => s.i != null);
         const ordered = _.orderBy(filtered, 'i');
         const selected = _.map(ordered, m => m.m);
 

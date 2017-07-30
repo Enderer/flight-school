@@ -1,10 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
-import { provideStore } from '@ngrx/store';
 import { DialogService } from 'ng2-bootstrap-modal';
 import { AppComponent } from './app.component';
 import { PageBaseComponent } from './flight-school/containers/page-base/page-base.component';
 import { SitenavComponent } from './flight-school/components';
 import { MarkPipe } from './flight-school/pipes';
+import { FlightSchoolModule } from './flight-school/flight-school.module';
+import { ReducerModule } from './flight-school/reducers';
 
 const state = {
     count: 0,
@@ -17,6 +18,9 @@ const state = {
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ReducerModule
+      ],
       declarations: [
         AppComponent,
         PageBaseComponent,
@@ -24,7 +28,6 @@ describe('AppComponent', () => {
         MarkPipe
       ],
       providers: [
-        provideStore(state),
         { provide: DialogService, useValue: {} }
       ]
     }).compileComponents();

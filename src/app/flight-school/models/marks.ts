@@ -51,7 +51,7 @@ export const markSets = {
  * @param {number} count - Length of the array to return
  * @param {any[]} list - Array to select elements from
  */
-export const randomList = (count: number, list: any[]): Mark[] => {
+export const randomList = (count: number, list: any[]): any[] => {
     list = list || [];
     count = count == null ? list.length : count;
 

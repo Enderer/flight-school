@@ -12,9 +12,10 @@ export class MarkPipe implements PipeTransform {
 
     transform(mark: Mark): any {
         if (mark == null) { return ''; }
+        const { r = null, s = null } = mark;
         if (mark.r === 1 && mark.s === 25) { return 'Bull'; }
         if (mark.r === 2 && mark.s === 25) { return 'DB'; }
-        const r = MarkPipe.ring[mark.r] || '';
-        return `${r}${mark.s}`;
+        const ring = MarkPipe.ring[r] || `(${r})`;
+        return `${ring}${s}`;
     }
 }

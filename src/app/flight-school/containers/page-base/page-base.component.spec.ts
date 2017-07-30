@@ -1,10 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DialogService } from 'ng2-bootstrap-modal';
-import { StoreModule } from '@ngrx/store';
 import { SitenavComponent } from '../../components';
 import { PageBaseComponent } from './page-base.component';
 import { MarkPipe } from '../../pipes';
+import { ReducerModule } from '../../reducers';
 
 const state = {
     count: 0,
@@ -21,9 +20,8 @@ describe('PageBaseComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PageBaseComponent, SitenavComponent, MarkPipe ],
-      imports: [StoreModule.provideStore({})],
+      imports: [ReducerModule],
       providers: [
-        
         { provide: DialogService, useValue: { } }
       ]
     })

@@ -12,7 +12,7 @@ export const initialState = {
 export function reducer(state = initialState, action: marksModal.Actions): State {
     switch (action.type) {
         case marksModal.SHOW: { 
-            if (state.show) { return state; }
+            if (state.show === true) { return state; }
             return { ...state, show: true };
         }
 

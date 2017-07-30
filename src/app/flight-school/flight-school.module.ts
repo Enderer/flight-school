@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StoreModule } from '@ngrx/store';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
-
-import { PageBaseComponent } from './containers/page-base/page-base.component';
+import { PageBaseComponent } from './containers';
 import { SitenavComponent, ModalMarksComponent } from './components';
-import { reducer } from './reducers';
+import { FontResizerDirective } from './directives';
 import { MarkPipe } from './pipes';
-import { FontResizerDirective } from './directives/font-resizer.directive';
+import { ReducerModule } from './reducers';
 
 @NgModule({
   imports: [
     CommonModule,
     BootstrapModalModule,
-    StoreModule.provideStore(reducer),
+    ReducerModule
   ],
   declarations: [
     PageBaseComponent, 
@@ -22,7 +20,9 @@ import { FontResizerDirective } from './directives/font-resizer.directive';
     MarkPipe, 
     FontResizerDirective
   ],
-  entryComponents: [ModalMarksComponent],
+  entryComponents: [
+    ModalMarksComponent
+  ],
   exports: [
     PageBaseComponent,
     FontResizerDirective

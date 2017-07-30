@@ -15,6 +15,7 @@ import * as countActions from '../../actions/count.actions';
 import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
 import * as turnsActions from '../../actions/turns.actions';
+import * as Selectors from '../../state/selectors/index.selector';
 
 const emptyTarget = { first: false, second: false, third: false };
 
@@ -54,15 +55,15 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         private store: Store<fromRoot.State>,
         private dialogService: DialogService) {
 
-        this.count$ = this.store.select(fromRoot.getCount);
-        this.showMarks$ = this.store.select(fromRoot.getMarksModalShow);
-        this.marks$ = this.store.select(fromRoot.getMarks);
-        this.turns$ = this.store.select(fromRoot.getTurns);
-        this.score$ = this.store.select(fromRoot.getScore);
-        this.target$ = this.store.select(fromRoot.getNextTarget);
-        this.selected$ = this.store.select(fromRoot.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
-        this.activeMarks$ = this.store.select(fromRoot.getActiveMarks);
-        this.isComplete$ = this.store.select(fromRoot.getIsComplete);
+        this.count$ = this.store.select(Selectors.getCount);
+        this.showMarks$ = this.store.select(Selectors.getMarksModalShow);
+        this.marks$ = this.store.select(Selectors.getMarks);
+        this.turns$ = this.store.select(Selectors.getTurns);
+        this.score$ = this.store.select(Selectors.getScore);
+        this.target$ = this.store.select(Selectors.getNextTarget);
+        this.selected$ = this.store.select(Selectors.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
+        this.activeMarks$ = this.store.select(Selectors.getActiveMarks);
+        this.isComplete$ = this.store.select(Selectors.getIsComplete);
      }
 
     ngOnInit() {
@@ -100,9 +101,10 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     onMarksClicked(event: Event) {
         console.debug('PageBaseComponent::onMarksClicked');
         this.store.dispatch(new marksModalActions.Show());
-        if (event == null) { return; }
-        event.stopImmediatePropagation();
-        event.preventDefault();
+        if (event) {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+        }
     }
 
     select(mark: Mark, event: Event): void {
@@ -224,17 +226,13 @@ export class PageBaseComponent implements OnInit, OnDestroy {
             closeByClickingOutside: true
         };
 
-        const data = {
-            title: 'Confirm title',
-            message: 'Confirm message',
-            marks: this.marks
-        };
+        const data = { marks: this.marks };
 
         this.showMarksSub = this.dialogService.addDialog(
             ModalMarksComponent, 
             data,
             options
-        ).subscribe((isConfirmed) => this.isConfirmed(isConfirmed));
+        ).subscribe(isConfirmed => this.isConfirmed(isConfirmed));
     }
 
     
@@ -245,14 +243,14 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         }
     }
 
-
     private isConfirmed(marks: Mark[]) {
         console.debug('PageBase::isConfirmed success', marks);
         this.store.dispatch(new marksModalActions.Hide());
-        if (marks) {
-            this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
-            this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
-        }
+        if (marks == null) { return; }
+
+        // Update to the new marks and clear out the turns
+        this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
     }
 
     private isFirstTarget(mark: Mark): boolean {

@@ -2,20 +2,29 @@ import { Mark, marksById } from '../models';
 import { MarkPipe } from './mark.pipe';
 
 describe('MarkPipe', () => {
-    it('creates an instance', () => {
+    it('should create an instance', () => {
         const pipe = new MarkPipe();
         expect(pipe).toBeTruthy();
     });
 
-    it('handles null values', () => {
+    it('should handle null values', () => {
         const pipe = new MarkPipe();
         expect(() => pipe.transform(undefined)).not.toThrow();
         expect(() => pipe.transform(null)).not.toThrow();
-        expect(pipe).toBeTruthy();
     });
 
-    it('displays labels for all marks', () => {
+    it('should handle nonexistent marks', () => {
         const pipe = new MarkPipe();
+        expect(pipe.transform(<Mark>{ s: 100, r: 50 })).toBe('(50)100');
+        expect(pipe.transform(<Mark>{ s: 100 })).toBe('(null)100');
+        expect(pipe.transform(<Mark>{ r: 50 })).toBe('(50)null');
+        expect(pipe.transform(<Mark>{})).toBe('(null)null');
+    });
+
+    it('should display labels for all marks', () => {
+        const pipe = new MarkPipe();
+        expect(pipe.transform(marksById['S25R1'])).toBe('Bull');
+        expect(pipe.transform(marksById['S25R2'])).toBe('DB');
         expect(pipe.transform(marksById['S20R1'])).toBe('S20');
         expect(pipe.transform(marksById['S20R2'])).toBe('D20');
         expect(pipe.transform(marksById['S20R3'])).toBe('T20');
@@ -34,8 +43,5 @@ describe('MarkPipe', () => {
         expect(pipe.transform(marksById['S15R1'])).toBe('S15');
         expect(pipe.transform(marksById['S15R2'])).toBe('D15');
         expect(pipe.transform(marksById['S15R3'])).toBe('T15');
-    });
-
-
-            
+    });        
 });

@@ -1,26 +1,14 @@
-import * as _ from 'lodash';
-import { createSelector } from 'reselect';
-import { ActionReducer } from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
-
-import { compose } from '@ngrx/core/compose';
+import { StoreModule, ActionReducerMap, compose } from '@ngrx/store';
+import { localStorageSync } from 'ngrx-store-localstorage';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { combineReducers } from '@ngrx/store';
 
-import { environment } from '../../../environments/environment';
-
-import { Mark } from '../models/mark';
-import { Score, Turn, Selected, getScores, getTarget } from '../models/score';
-
+import { Mark, Turn, Selected } from '../models';
 import * as fromSelected from './selected.reducer';
 import * as fromTurns from './turns.reducer';
 import * as fromCount from './count.reducer';
 import * as fromMarks from './marks.reducer';
 import * as fromMarksModal from './marks-modal.reducer';
-
-import { localStorageSync } from 'ngrx-store-localstorage';
-
-
 
 export interface State {
     count: number;
@@ -30,60 +18,20 @@ export interface State {
     selected: Selected;
 }
 
-const reducers = {
+export const reducers: ActionReducerMap<State> = {
     count: fromCount.reducer,
-    marksModal: fromMarksModal.reducer,
     marks: fromMarks.reducer,
     turns: fromTurns.reducer,
+    marksModal: fromMarksModal.reducer,
     selected: fromSelected.reducer
 };
 
-// const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
-// const productionReducer: ActionReducer<State> = combineReducers(reducers);
+const syncKeys = ['turns', 'marks', 'count', 'selected'];
+const storageReducer = localStorageSync({ keys: syncKeys, rehydrate: true });
+const syncReducer = compose(storeFreeze, storageReducer);
 
-const storageReducer = localStorageSync(['turns', 'marks', 'count', 'selected'], true);
-
-const developmentReducer = compose(storeFreeze, storageReducer, combineReducers)(reducers);
-const productionReducer = compose(storageReducer, combineReducers)(reducers);
-
-export function reducer(state: any, action: any) {
-    if (environment.production) {
-        return productionReducer(state, action);
-    } else {
-        return developmentReducer(state, action);
-    }
+export function metaReducer(r) {
+    return syncReducer(r);
 }
-
-
-
-export const getCount = (state: State) => state.count;
-export const getMarks = (state: State) => state.marks;
-
-export const getTurns = (state: State) => state.turns;
-export const getSelected = (state: State) => state.selected;
-
-// Marks Modal
-export const getShowMarkModalState = (state: State) => state.marksModal;
-export const getMarksModalShow = createSelector(getShowMarkModalState, fromMarksModal.getShow);
-
-// Scores
-export const getScore = createSelector(getTurns, getMarks, getScores);
-
-export const getActiveMarks = createSelector(getScore, getCount, (scores, count): Mark[] => {
-    console.debug('getActiveMarks');
-
-    const s = _.values(scores);
-    const a = _.filter(s, score => {
-        return !(score.count >= count);
-    });
-    const m = _.map(a, score => score.mark);
-    return m;
-});
-
-// Target
-export const getNextTarget = createSelector(getMarks, getTurns, getCount, getTarget);
-
-export const getIsComplete = createSelector(getMarks, getScore, getCount, (marks: Mark[], scores, count: number) => {
-    const remaining = _.values(scores).filter(score => score.count < count);
-    return !(remaining.length > 0);
-});
+export const metaReducers = [metaReducer];
+export const ReducerModule = StoreModule.forRoot(reducers, { metaReducers });

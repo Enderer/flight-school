@@ -1,5 +1,7 @@
 export class Mark {
-    id: string;
-    s: number;
-    r: number;
+    constructor(
+        public id: string,
+        public s: number,
+        public r: number
+    ) {}
 }
