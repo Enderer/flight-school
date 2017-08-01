@@ -134,8 +134,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     }
 
     /** Set the list of selected marks to the ones provided */
-    private setSelectedMark(marks: Mark[]): void {
-        const a = _.map(marks, (v, i) => ({ v, i}));
+    private setSelectedMark(markList: Mark[]): void {
+        const a = _.map(markList, (v, i) => ({ v, i}));
         const b = _.keyBy(a, m => m.v.id);
         const c = _.mapValues(b, m => m.i);
         this.selected = c;

@@ -6,11 +6,7 @@ export const rings = [1, 2, 3];
 export const marks: Mark[] = [];
 
 sectors.forEach(s => rings.forEach(r => {
-    marks.push({ 
-        id: `S${s}R${r}`,
-        s: s,
-        r: r
-    });
+    marks.push(new Mark(`S${s}R${r}`, s, r));
 }));
 
 marks.push({ id: `S${25}R${1}`, s: 25, r: 1 });

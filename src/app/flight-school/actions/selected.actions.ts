@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Selected } from '../models/score';
+import { Selected } from '../models';
 
 export const SELECTED_UPDATE_COMPLETE = '[Selected] Update Complete';
 

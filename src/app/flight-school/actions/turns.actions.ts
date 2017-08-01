@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Turn } from '../models/score';
+import { Turn } from '../models';
 
 export const TURNS_UPDATE_COMPLETE = '[Turns] Update Complete';
 

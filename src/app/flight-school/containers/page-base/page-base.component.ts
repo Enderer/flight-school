@@ -5,7 +5,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { DialogService } from 'ng2-bootstrap-modal';
 import * as _ from 'lodash';
 
-import { Turn, Score, Throw, Target, Selected } from '../../models/score';
+import { Turn, Score, Throw, Target, Selected } from '../../models';
+import { none, one, two, three } from '../../models/selected';
 import { Mark } from '../../models/mark';
 import { ModalMarksComponent } from '../../components';
 
@@ -116,10 +117,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
 
         let selected: Selected = null;
 
-        const none = { first: false, second: false, third: false };
-        const one = { first: true, second: false, third: false };
-        const two = { first: true, second: true, third: false };
-        const three = { first: true, second: true, third: true };
+
 
 
         if (this.equal(this.target.first, mark)) {
@@ -195,7 +193,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new turnsActions.TurnsUpdateComplete(newTurns));
     }
 
-    private isTarget(mark: Mark): boolean {
+    isTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
 
         if (this.equal(this.target.first, mark)) { return true; }
@@ -253,27 +251,27 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
     }
 
-    private isFirstTarget(mark: Mark): boolean {
+    isFirstTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 
         return (this.target.first && this.target.first.id === mark.id);
     }
 
-    private isSecondTarget(mark: Mark): boolean {
+    isSecondTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 
         return (this.target.second && this.target.second.id === mark.id);
     }
-    private isThirdTarget(mark: Mark): boolean {
+    isThirdTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 
         return (this.target.third && this.target.third.id === mark.id);
     }
-
-    private isSelected(mark: Mark): boolean {
+    
+    isSelected(mark: Mark): boolean {
         if (mark == null) { return false; }
         if (this.target == null) { return false; }
         if (this.select == null) { return false; }

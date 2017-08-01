@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Mark } from '../models/mark';
+import { Mark, Target, emptyTarget, Throw, Turn } from '../models';
 
 export interface Score {
     id: string;
@@ -10,32 +10,7 @@ export interface Score {
     mark: Mark;
 }
 
-
-export class Turn {
-    /**
-     * Constructor
-     * @param {Throw[]} throws - List of marks hit this turn
-     * @param {Mark} start  - First mark to be hit at the start of the turn
-     * @param {Target} target - Marks thrown at this turn
-     */
-    constructor(
-        public throws: Throw[] = [],
-        public start: Mark = null,
-        public target: Target = null
-    ) {}
-}
-
-/** A single throw by a player */
-export class Throw {
-    constructor(
-        public mark: Mark = null, 
-        public target: Mark = null) {}
-}
-
-
 export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} => {
-    console.debug('PageBase::getScores');
-
     const scores = _(marks)
         .keyBy(m => m.id)
         .mapValues((m: Mark) => { 
@@ -98,24 +73,21 @@ export const getScores = (turns: Turn[], marks: Mark[]): {[id: string]: Score} =
     return _.keyBy(val, v => v.id);
 };
 
-export class Target {
-    constructor(
-        public first: Mark = null,
-        public second: Mark = null,
-        public third: Mark = null
-    ) {}
-}
+/**
+ * Gets the targets a user should shoot at next turn
+ * @param {Mark[]} marks - Marks being shot at
+ * @param {Turn[]} turns - Previous turns
+ * @param {number} count - Number of hits required for each mark
+ */
+export const getTarget = (marks: Mark[], turns: Turn[], count: number): Target => {
+    const lastTurn = _.last(turns);
+    if (lastTurn == null) { return nextTarget(marks); }
 
-export class Selected {
-    first: boolean;
-    second: boolean;
-    third: boolean;  
-}
-
-export const emptyTarget: Target = {
-    first: null,
-    second: null,
-    third: null
+    const lastMark = getLastHit(lastTurn);
+    const ordered = orderMarks(marks, lastMark);
+    const active = activeMarks(ordered, turns, count);
+    const target = nextTarget(active);
+    return target;
 };
 
 const nextTarget = (marks: Mark[]): Target => {
@@ -158,16 +130,4 @@ const activeMarks = (marks: Mark[], turns: Turn[], count: number): Mark[] => {
         return !(hits[m.id] >= count);
     });
 
-};
-
-export const getTarget = (marks: Mark[], turns: Turn[], count: number): Target => {
-
-    const lastTurn = _.last(turns);
-    if (lastTurn == null) { return nextTarget(marks); }
-
-    const lastMark = getLastHit(lastTurn);
-    const ordered = orderMarks(marks, lastMark);
-    const active = activeMarks(ordered, turns, count);
-    const target = nextTarget(active);
-    return target;
 };

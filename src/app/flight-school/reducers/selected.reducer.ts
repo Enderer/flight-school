@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import * as _ from 'lodash';
-import { Turn, Score, Throw, Selected } from '../models/score';
+import { Turn, Score, Throw, Selected } from '../models';
 import * as selected from '../actions/selected.actions';
 
 export const initialState: Selected = {

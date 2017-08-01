@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DialogService } from 'ng2-bootstrap-modal';
 import { randomList, markSets, marksById } from './marks';
 import * as seedrandom from 'seedrandom';
 import * as _ from 'lodash';
