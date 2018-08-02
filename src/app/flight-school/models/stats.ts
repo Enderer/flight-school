@@ -53,7 +53,7 @@ export const rounds = (turns: Turn[]): number => {
     const arr = _.values(r);
     const max = Math.max(...arr);
     return max;
-}
+};
 
 export const getRoundCount = (scores: {[id: string]: Score}): number => {
     const attempts = _.values(scores).map(s => s.attempts);
@@ -80,7 +80,7 @@ export interface Turn1 {
 const isHit = (mark: Mark, turn: Turn): boolean => {
     const hit = _.some(turn.throws, (t: Throw) => t.mark.id === mark.id);
     return hit;
-}
+};
 
 
 
