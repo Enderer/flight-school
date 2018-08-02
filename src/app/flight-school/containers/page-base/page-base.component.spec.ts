@@ -4,7 +4,7 @@ import { DialogService } from 'ng2-bootstrap-modal';
 import { StoreModule } from '@ngrx/store';
 import { SitenavComponent } from '../../components';
 import { PageBaseComponent } from './page-base.component';
-import { MarkPipe } from '../../pipes';
+import * as Pipes from '../../pipes';
 
 const state = {
     count: 0,
@@ -20,7 +20,12 @@ describe('PageBaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageBaseComponent, SitenavComponent, MarkPipe ],
+      declarations: [ 
+        PageBaseComponent, 
+        SitenavComponent, 
+        Pipes.MarkPipe,
+        Pipes.GameDurationPipe
+      ],
       imports: [StoreModule.provideStore({})],
       providers: [
         
