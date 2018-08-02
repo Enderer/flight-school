@@ -202,3 +202,8 @@ a.btn:focus {
 }
 
 @include text-emphasis-variant('.text-danger', red);
+
+
+.btn {
+    font-size: .9em;
+}

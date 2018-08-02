@@ -10,7 +10,8 @@ import { combineReducers } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
 import { Mark } from '../models/mark';
-import { Score, Turn, Selected, getScores, getTarget } from '../models/score';
+import { Score, Turn, Selected, getScores, getTarget, isComplete, getStart, getEnd } from '../models/score';
+import { getRoundCount, getStats, getDuration } from '../models/stats';
 
 import * as fromSelected from './selected.reducer';
 import * as fromTurns from './turns.reducer';
@@ -35,13 +36,13 @@ const reducers = {
     marksModal: fromMarksModal.reducer,
     marks: fromMarks.reducer,
     turns: fromTurns.reducer,
-    selected: fromSelected.reducer
+    selected: fromSelected.reducer,
 };
 
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
 // const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
-const storageReducer = localStorageSync(['turns', 'marks', 'count', 'selected'], true);
+const storageReducer = localStorageSync(['turns', 'marks', 'count', 'selected', 'start'], true);
 
 const developmentReducer = compose(storeFreeze, storageReducer, combineReducers)(reducers);
 const productionReducer = compose(storageReducer, combineReducers)(reducers);
@@ -83,7 +84,14 @@ export const getActiveMarks = createSelector(getScore, getCount, (scores, count)
 // Target
 export const getNextTarget = createSelector(getMarks, getTurns, getCount, getTarget);
 
-export const getIsComplete = createSelector(getMarks, getScore, getCount, (marks: Mark[], scores, count: number) => {
-    const remaining = _.values(scores).filter(score => score.count < count);
-    return !(remaining.length > 0);
-});
+export const getIsComplete = createSelector(getMarks, getScore, getCount, isComplete);
+
+
+export const getRounds = createSelector(getScore, getRoundCount);
+
+export const selectStats = createSelector(getTurns, getMarks, getCount, getStats);
+
+export const selectStart = createSelector(getTurns, getStart);
+export const selectEnd = createSelector(getMarks, getTurns, getCount, getEnd);
+export const selectDuration = createSelector(getTurns, getMarks, getCount, getDuration);
+

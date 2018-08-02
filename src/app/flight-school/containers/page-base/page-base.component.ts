@@ -6,6 +6,7 @@ import { DialogService } from 'ng2-bootstrap-modal';
 import * as _ from 'lodash';
 
 import { Turn, Score, Throw, Target, Selected } from '../../models/score';
+import { Stats, getDuration } from '../../models/stats';
 import { Mark } from '../../models/mark';
 import { ModalMarksComponent } from '../../components';
 
@@ -15,6 +16,8 @@ import * as countActions from '../../actions/count.actions';
 import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
 import * as turnsActions from '../../actions/turns.actions';
+import * as moment from 'moment';
+import { Duration } from 'moment';
 
 const emptyTarget = { first: false, second: false, third: false };
 
@@ -50,10 +53,15 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     isComplete$: Observable<boolean>;
     isComplete: boolean;
 
+    rounds$: Observable<number>;
+    stats$: Observable<Stats>;
+    start$: Observable<Date>;
+    duration$: Observable<Duration>;
+
     constructor(
         private store: Store<fromRoot.State>,
-        private dialogService: DialogService) {
-
+        private dialogService: DialogService
+    ) {
         this.count$ = this.store.select(fromRoot.getCount);
         this.showMarks$ = this.store.select(fromRoot.getMarksModalShow);
         this.marks$ = this.store.select(fromRoot.getMarks);
@@ -63,6 +71,18 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.selected$ = this.store.select(fromRoot.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
         this.activeMarks$ = this.store.select(fromRoot.getActiveMarks);
         this.isComplete$ = this.store.select(fromRoot.getIsComplete);
+        this.rounds$ = this.store.select(fromRoot.getRounds); 
+        this.stats$ = this.store.select(fromRoot.selectStats);
+        this.start$ = this.store.select(fromRoot.selectStart);
+        this.duration$ = Observable.combineLatest(
+            Observable.timer(1, 30000), 
+            this.store.select(fromRoot.getTurns),
+            this.store.select(fromRoot.getMarks),
+            this.store.select(fromRoot.getCount)
+        ).map(([i, turns, marks, count]) => {
+            const duration = getDuration(turns, marks, count);
+            return duration;
+        });
      }
 
     ngOnInit() {
@@ -151,6 +171,7 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         const turn = new Turn();
         turn.start = this.target.first;
         turn.target = this.target;
+        turn.timestamp = new Date();
 
         if (this.target && this.target.first && this.isSelected(this.target.first)) { 
             turn.throws.push(new Throw(this.target.first));
@@ -216,6 +237,11 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     get showButtons(): boolean {
         return this.marks && this.marks.length > 0;
     }
+
+    get showStats$(): Observable<boolean> {
+        return this.turns$.map(t => t.length > 0);
+    }
+
 
     private openMarksModal() {
         console.debug('PageBase::openMarksModal');

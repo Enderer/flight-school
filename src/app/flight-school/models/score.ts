@@ -20,6 +20,9 @@ export class Turn {
 
     /** Marks thrown at this turn */
     target: Target;
+
+    timestamp: Date;
+
 }
 
 /** A single throw by a player */
@@ -138,8 +141,12 @@ const orderMarks = (marks: Mark[], mark: Mark): Mark[] => {
     return reordered;
 };
 
-const activeMarks = (marks: Mark[], turns: Turn[], count: number): Mark[] => {
+export const isComplete = (marks: Mark[], scores, count: number) => {
+    const remaining = _.values(scores).filter(score => score.count < count);
+    return !(remaining.length > 0);
+};
 
+const activeMarks = (marks: Mark[], turns: Turn[], count: number): Mark[] => {
     const hits = _(turns)
         .map(t => t.throws)
         .flatten()
@@ -152,11 +159,9 @@ const activeMarks = (marks: Mark[], turns: Turn[], count: number): Mark[] => {
     return marks.filter(m => {
         return !(hits[m.id] >= count);
     });
-
 };
 
 export const getTarget = (marks: Mark[], turns: Turn[], count: number): Target => {
-
     const lastTurn = _.last(turns);
     if (lastTurn == null) { return nextTarget(marks); }
 
@@ -165,4 +170,23 @@ export const getTarget = (marks: Mark[], turns: Turn[], count: number): Target =
     const active = activeMarks(ordered, turns, count);
     const target = nextTarget(active);
     return target;
+};
+
+export const getStart = (turns: Turn[]) => {
+    if (turns && turns.length > 0) {
+        return turns[0].timestamp || null;
+    }
+    return null;
+};
+
+
+export const getEnd = (marks: Mark[], turns: Turn[], count: number) => {
+    const scores = getScores(turns, marks);
+    const complete = isComplete(marks, scores, count);
+    // If the game is complete the end time is the timestamp of the last turn
+    if (complete) {
+        const last = _.last(turns);
+        return last.timestamp || null;
+    }
+    return null;
 };

@@ -49,13 +49,14 @@ $cancel-width: 4.1rem;
 // }
 
 .flex-item.closed .flex-cell {
+    opacity: .7;
+    border-color: #0e0e0e;
     border-right-color: transparent;
-    opacity: .75;
+
+    .text-muted {
+        color: #393939!important;
+    }
 }
-
-
-
-
 
 @media (min-width: 1200px) {
 
@@ -66,7 +67,7 @@ $cancel-width: 4.1rem;
 
 .btn-enter { 
     padding: 1rem 0rem !important;
-    width: 7.5rem;
+    width: 6.5rem;
     background: #242424!important;
 }
 
@@ -81,7 +82,7 @@ $cancel-width: 4.1rem;
 
 
 .target-score.score-index {
-    background-color: #202020;
+    background-color: #282828;
     color: #fff;
 }
 
@@ -96,9 +97,8 @@ $cancel-width: 4.1rem;
 }
 
 .target-score.score-mark {
-    font-weight: 300;
+    font-weight: 500;
 }
-
 
 .flex-container-scores .flex-cell {
     // flex-basis: auto;
@@ -109,4 +109,16 @@ $cancel-width: 4.1rem;
 
 .btn.bg-blank {
     background-color: #1e1e1e!important;
+}
+
+
+.stats-big {
+    line-height: 1em;
+    white-space: nowrap;
+    padding-top:.1em;
+}
+.stats-small {
+    font-size: .5em;
+    line-height: 1.1em;
+    white-space: nowrap;
 }

@@ -78,7 +78,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         const indexed = _.map(marks, m => {
             return { i: this.selected[m.id], m };
         });
-        const filtered =  _.filter(indexed, s => s.i);
+        
+        const filtered =  _.filter(indexed, s => !!s.i);
         const ordered = _.orderBy(filtered, 'i');
         const selected = _.map(ordered, m => m.m);
 

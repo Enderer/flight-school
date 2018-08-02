@@ -8,6 +8,7 @@ import { SitenavComponent, ModalMarksComponent } from './components';
 import { reducer } from './reducers';
 import { MarkPipe } from './pipes';
 import { FontResizerDirective } from './directives/font-resizer.directive';
+import { GameDurationPipe } from './pipes/game-duration.pipe';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { FontResizerDirective } from './directives/font-resizer.directive';
     SitenavComponent, 
     ModalMarksComponent, 
     MarkPipe, 
-    FontResizerDirective
+    FontResizerDirective, 
+    GameDurationPipe
   ],
   entryComponents: [ModalMarksComponent],
   exports: [

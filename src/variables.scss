@@ -7,7 +7,7 @@ $font-size-lg:              1.25rem;
 
 $white:  #fff !default;
 $black:  #000 !default;
-$red:    #730000 !default;
+$red:    #7c2424 !default;
 $orange: #f0ad4e !default;
 $yellow: #ffd500 !default;
 $green:  limegreen !default;
@@ -16,40 +16,42 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
-$gray-darkest:              #0a0a0a !default;
-$gray-darker:               #161616 !default;
-$gray-dark:                 #1a1a1a !default;
-$gray:                      #464a4c !default;
-$gray-light:                #999 !default;
+$gray-darkest:              #111 !default;
+$gray-darker:               #1a1a1a !default;
+$gray-dark:                 #1e1e1e !default;
+$gray:                      #0e0f0f !default;
+$gray-light:                #ccc !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
 $body-bg:                   $gray-dark;
 $body-color:                $gray-light;
+$font-weight-normal:        300;
+
 
 $brand-blank:               $gray-dark;
 $brand-faded:               $gray-darker;
-$brand-inverse:             #1c1c1c;
+$brand-inverse:             #1a1a1a;
 
 $border-color:              $gray-darkest;
-$text-muted:                #333;
+$text-muted:                #666;
 $text-danger: red;
 $white:                     #fff;
 $text-semibold-font-weight: 600;
 $spacer-y:                  .5rem;
 
-$navbar-inverse-color:      #666 !default;
+$navbar-inverse-color:      #999 !default;
 $navbar-brand-padding-y:    0;
 $navbar-height:             2.85rem;
 $navbar-padding-y:          0;
 $navitem-padding-y:         0;
 $navitem-align:             center;
-$nav-link-padding-y:        .8em;
+$nav-link-padding-y:        .8rem;
 $nav-link-active-bg:        rgba(0,0,0,.75);
 
 // Secondary Button
 $btn-primary-color:            $white !default;
-$btn-primary-bg:               #242424 !default;
+$btn-primary-bg:               #2a2a2a !default;
 $btn-primary-border:           $border-color !default;
 $btn-font-weight:               lighter;
 

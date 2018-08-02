@@ -21,14 +21,67 @@
                         <span>Select marks to begin</span><br>
                     </div>
 
+                    <div *ngIf="showButtons"
+                        class="d-flex align-items-center"
+                        style="background-color: #1e1e1e;">
+                        
+                        <div class="text-muted" style="flex-grow:1">
+                            <div 
+                                *ngIf="showStats$ | async"
+                                class="d-flex py-2 pl-3 pr-3 align-items-start justify-content-between">
 
-                    <div *ngIf="showButtons" style="background-color: #1e1e1e;">
+                                <!-- Round -->
+                                <div class="d-flex">
+                                    <div class="pr-2">
+                                        <div class="stats-small">Round</div>
+                                        <div class="stats-big">{{(stats$ | async).rounds}}&nbsp;</div>
+                                    </div>
+                                    <div>
+                                        <div class="stats-small">{{(stats$ | async).turns}} turns</div>
+                                        <div class="stats-small">{{(stats$ | async).throws}} darts</div>
+                                        <div class="stats-small">{{((duration$ | async) | gameDuration)}}</div>
+                                        <!-- <div class="stats-small">{{(stats$ | async).turnHitPercent | percent: '1.0-0'}} hit</div> -->
+                                    </div>
+                                </div>
+                                
+                                <!-- Marks -->
+                                <div class="d-flex">
+                                    <div class="pr-2">
+                                        <div class="stats-small">Left</div>
+                                        <div class="stats-big">{{(stats$ | async).remainingMarks}}</div>
+                                    </div>
+                                    <div>
+                                        <div class="stats-small">{{(stats$ | async).marks}} targets</div>
+                                        <div class="stats-small">{{(stats$ | async).totalMarks}} marks</div>
+                                    </div>
+                                </div>
 
-                        <a href="javascript:void(0)" 
-                            style="border-width: 0 0 0 1px;"
-                            class="btn btn-danger btn-cancel p-3 float-right" 
-                            (mousedown)="cancelClicked($event)"
-                            (touchstart)="cancelClicked($event)">C</a>
+                                <!-- Hits -->
+                                <div class="d-flex pl-3">
+                                    <div class="pr-1">
+                                        <div class="stats-small">Hit Rate</div>
+                                        <div class="stats-big">{{(stats$ | async).hitsPerThrow | percent: '1.0-0'}}</div>
+                                    </div>
+                                    <div>
+                                        
+                                        <!-- <div class="stats-small">{{(stats$ | async).misses}} Miss</div> -->
+                                        <!-- <div class="stats-small">{{(stats$ | async).hits}} Hit</div> -->
+                                    </div>
+                                </div>
+
+                                <!-- <div>                            
+                                    Hits [{{(stats$ | async).hits}}][{{(stats$ | async).hitsPerThrow | percent: '1.0-0'}}]<br>
+                                    Darts [{{(stats$ | async).throws}}]<br>
+                                    Turns [{{(stats$ | async).turns}}]<br>
+                                </div>
+                                <div>
+                                    Misses [{{(stats$ | async).misses}}]<br>
+                                    Round [{{(stats$ | async).rounds}}]<br>
+                                    TurnHits [{{(stats$ | async).turnHits}}]<br>
+                                </div> -->
+                            </div>
+                        </div>
+
 
                         <a href="javascript:void(0)"
                             style="border-width: 0 1px;"
@@ -40,10 +93,16 @@
                             <span *ngIf="hasSelected && !isComplete">Enter</span>
                             <span *ngIf="!hasSelected && !isComplete">Miss</span>
                             <span *ngIf="isComplete">
-                                Done
-                                <i class="fa fa-check"></i>
+                                Complete
                             </span>
-                            </a>
+                        </a>
+
+                        <a href="javascript:void(0)" 
+                            style="border-width: 0 0 0 1px;"
+                            class="btn btn-danger btn-cancel p-3 float-right" 
+                            (mousedown)="cancelClicked($event)"
+                            (touchstart)="cancelClicked($event)">C</a>
+
                         <!--<button class="btn btn-secondary"><i class="fa fa-bar-chart"></i></button>-->
                     </div>
 
@@ -65,7 +124,7 @@
                             </div>
 
                             <!-- Mark -->
-                            <div class="score-mark flex-cell font-weight-light font-size-lg"
+                            <div class="score-mark flex-cell font-weight-light"
                                 [class.bg-success]="isSelected(mark)"
                                 [class.text-white]="isSelected(mark) || isTarget(mark)"
                                 [class.first-score]="isFirstTarget(mark)"
