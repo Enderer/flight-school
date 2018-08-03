@@ -2,7 +2,7 @@ sudo: false
 dist: trusty
 language: node_js
 node_js:
-  - '6.9'
+  - '8.11'
 notifications:
   slack: dartbotapp:3zDEQkGfPGcpoqWaUznJqlht
 addons:
