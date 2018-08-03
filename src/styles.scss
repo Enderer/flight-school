@@ -49,9 +49,13 @@
     box-shadow: none!important;
 }
 
-.btn-primary:active {
-    background-color: $btn-primary-bg;
+.btn-primary {
+    background-color: $btn-primary-bg!important;
 }
+.btn-danger {
+    background-color: $btn-danger-bg!important;
+}
+
 
 // Add a bg-* class for blank background
 // Applies a white background in default theme

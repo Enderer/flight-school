@@ -22,8 +22,7 @@
                     </div>
 
                     <div *ngIf="showButtons"
-                        style="background-color:#202020;"
-                        class="row-stats bg-faded d-flex align-items-stretch">
+                        class="row-stats d-flex align-items-stretch">
                         
                         <div class="align-self-center" style="flex-grow:1">
                             <div 
@@ -46,7 +45,7 @@
                                 </div>
                                 
                                 <!-- Marks -->
-                                <div class="d-flex">
+                                <div class="hidden-xs-down d-flex">
                                     <div class="pr-2">
                                         <!-- <div class="stats-small">Left</div> -->
                                         <div class="stats-big">{{(stats$ | async).remainingMarks}}</div>
