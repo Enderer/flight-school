@@ -1,3 +1,8 @@
+@import '../../../../variables.scss';
+
+.navbar {
+    border-bottom: 1px solid $navbar-border-color;
+}
 .dropdown-toggle::after {
     margin-left: 0;
 }

@@ -22,23 +22,24 @@
                     </div>
 
                     <div *ngIf="showButtons"
-                        class="d-flex align-items-center"
-                        style="background-color: #1e1e1e;">
+                        style="background-color:#202020;"
+                        class="row-stats bg-faded d-flex align-items-stretch">
                         
-                        <div class="text-muted" style="flex-grow:1">
+                        <div class="align-self-center" style="flex-grow:1">
                             <div 
                                 *ngIf="showStats$ | async"
-                                class="d-flex py-2 pl-3 pr-3 align-items-start justify-content-between">
+                                class="d-flex px-3 align-items-start">
 
                                 <!-- Round -->
-                                <div class="d-flex">
-                                    <div class="pr-2">
-                                        <div class="stats-small">Round</div>
+                                <div class="d-flex pr-3">
+                                    <div class="pr-1">
+                                        <!-- <div class="stats-small">Round</div> -->
                                         <div class="stats-big">{{(stats$ | async).rounds}}&nbsp;</div>
                                     </div>
                                     <div>
-                                        <div class="stats-small">{{(stats$ | async).turns}} turns</div>
-                                        <div class="stats-small">{{(stats$ | async).throws}} darts</div>
+                                        <!-- <div class="stats-small">Round</div>                                             -->
+                                        <div class="stats-small">{{(stats$ | async).turns}} Turns</div>
+                                        <div class="stats-small">{{(stats$ | async).throws}} Darts</div>
                                         <div class="stats-small">{{((duration$ | async) | gameDuration)}}</div>
                                         <!-- <div class="stats-small">{{(stats$ | async).turnHitPercent | percent: '1.0-0'}} hit</div> -->
                                     </div>
@@ -47,26 +48,30 @@
                                 <!-- Marks -->
                                 <div class="d-flex">
                                     <div class="pr-2">
-                                        <div class="stats-small">Left</div>
+                                        <!-- <div class="stats-small">Left</div> -->
                                         <div class="stats-big">{{(stats$ | async).remainingMarks}}</div>
                                     </div>
                                     <div>
-                                        <div class="stats-small">{{(stats$ | async).marks}} targets</div>
-                                        <div class="stats-small">{{(stats$ | async).totalMarks}} marks</div>
+                                        <!-- <div class="stats-small">Remaining</div> -->
+                                        <div class="stats-small">
+                                            <span>{{(stats$ | async).marks}} Marks</span> 
+                                            <!-- <span>(x{{(count$ | async)}})</span> -->
+                                        </div>
+                                        <div class="stats-small">{{(stats$ | async).totalMarks}} Targets</div>
                                     </div>
                                 </div>
 
                                 <!-- Hits -->
-                                <div class="d-flex pl-3">
-                                    <div class="pr-1">
-                                        <div class="stats-small">Hit Rate</div>
+                                <div class="d-flex ml-auto pr-1">
+                                    <div>
+                                        <!-- <div class="stats-small">Hit Rate</div> -->
                                         <div class="stats-big">{{(stats$ | async).hitsPerThrow | percent: '1.0-0'}}</div>
                                     </div>
-                                    <div>
+                                    <!-- <div>
                                         
-                                        <!-- <div class="stats-small">{{(stats$ | async).misses}} Miss</div> -->
-                                        <!-- <div class="stats-small">{{(stats$ | async).hits}} Hit</div> -->
-                                    </div>
+                                        <div class="stats-small">{{(stats$ | async).misses}} Miss</div>
+                                        <div class="stats-small">{{(stats$ | async).hits}} Hit</div>
+                                    </div> -->
                                 </div>
 
                                 <!-- <div>                            
@@ -84,7 +89,7 @@
 
 
                         <a href="javascript:void(0)"
-                            style="border-width: 0 1px;"
+                            style="border-width: 0 0 0 1px;"
                             class="btn btn-primary btn-enter p-3 float-right" 
                             [class.disabled]="isComplete"
                             [class.bg-blank]="isComplete"
@@ -124,7 +129,7 @@
                             </div>
 
                             <!-- Mark -->
-                            <div class="score-mark flex-cell font-weight-light"
+                            <div class="score-mark flex-cell font-weight-light font-size-lg"
                                 [class.bg-success]="isSelected(mark)"
                                 [class.text-white]="isSelected(mark) || isTarget(mark)"
                                 [class.first-score]="isFirstTarget(mark)"

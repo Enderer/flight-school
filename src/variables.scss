@@ -16,11 +16,11 @@ $teal:   #5bc0de !default;
 $pink:   #ff5b77 !default;
 $purple: #613d7c !default;
 
-$gray-darkest:              #111 !default;
-$gray-darker:               #1a1a1a !default;
-$gray-dark:                 #1e1e1e !default;
+$gray-darkest:              #191919 !default;
+$gray-darker:               #1d1d1d !default;
+$gray-dark:                 #222 !default;
 $gray:                      #0e0f0f !default;
-$gray-light:                #ccc !default;
+$gray-light:                #bbb !default;
 $gray-lighter:              #eceeef !default;
 $gray-lightest:             #f7f7f9 !default;
 
@@ -31,7 +31,7 @@ $font-weight-normal:        300;
 
 $brand-blank:               $gray-dark;
 $brand-faded:               $gray-darker;
-$brand-inverse:             #1a1a1a;
+$brand-inverse:             #1c1c1c;
 
 $border-color:              $gray-darkest;
 $text-muted:                #666;
@@ -40,6 +40,7 @@ $white:                     #fff;
 $text-semibold-font-weight: 600;
 $spacer-y:                  .5rem;
 
+$navbar-border-color:       $gray;
 $navbar-inverse-color:      #999 !default;
 $navbar-brand-padding-y:    0;
 $navbar-height:             2.85rem;
@@ -51,7 +52,7 @@ $nav-link-active-bg:        rgba(0,0,0,.75);
 
 // Secondary Button
 $btn-primary-color:            $white !default;
-$btn-primary-bg:               #2a2a2a !default;
+$btn-primary-bg:               #2d2d2d !default;
 $btn-primary-border:           $border-color !default;
 $btn-font-weight:               lighter;
 

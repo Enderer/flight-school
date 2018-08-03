@@ -9,6 +9,11 @@ $cancel-width: 4.1rem;
     // padding-right: 0;
 }
 
+.row-stats {
+    height: 3.4rem;
+    flex-shrink: 0;
+}
+
 .score-index { width: 2.5rem; }
 .score-stats { width: $cancel-width; }
 .score-mark  { flex-grow: 1; }
@@ -49,10 +54,8 @@ $cancel-width: 4.1rem;
 // }
 
 .flex-item.closed .flex-cell {
-    opacity: .7;
-    border-color: #0e0e0e;
     border-right-color: transparent;
-
+    border-color: #191919;
     .text-muted {
         color: #393939!important;
     }
@@ -68,12 +71,12 @@ $cancel-width: 4.1rem;
 .btn-enter { 
     padding: 1rem 0rem !important;
     width: 6.5rem;
-    background: #242424!important;
 }
 
 .btn-cancel { 
     padding: 1rem 0rem !important;
     width: $cancel-width;
+    border-color: $border-color;
 }
 
 .flex-item:last-child {
@@ -82,11 +85,16 @@ $cancel-width: 4.1rem;
 
 
 .target-score.score-index {
-    background-color: #282828;
+    background-color: #2b2b2b;
     color: #fff;
 }
 
-.bg-success { font-weight: 300;}
+.bg-success { 
+    font-weight: 300; 
+    > span {
+        text-shadow: none;
+    }
+}
 
 .no-marks {
     overflow: hidden;
@@ -97,13 +105,8 @@ $cancel-width: 4.1rem;
 }
 
 .target-score.score-mark {
-    font-weight: 500;
-}
-
-.flex-container-scores .flex-cell {
-    // flex-basis: auto;
-    // flex-shrink: 0;
-    // flex-grow: 1;
+    font-weight: 300;
+    text-shadow: 1px 1px 1px #000;
 }
 
 
@@ -115,10 +118,11 @@ $cancel-width: 4.1rem;
 .stats-big {
     line-height: 1em;
     white-space: nowrap;
-    padding-top:.1em;
+    font-size: 1.15em;
 }
 .stats-small {
     font-size: .5em;
     line-height: 1.1em;
     white-space: nowrap;
+    color: $text-muted;
 }
