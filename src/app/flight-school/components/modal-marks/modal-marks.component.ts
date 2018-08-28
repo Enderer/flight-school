@@ -1,14 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DialogComponent, DialogService } from 'ng2-bootstrap-modal';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import { Mark } from '../../models/mark';
 import { lookup, bySector, byRing, marks, sectors, rings } from '../../models/marks';
-
-export interface MarksModel {
-    title: string;
-    message: string;
-    marks: Mark[];
-}
 
 @Component({
     selector: 'fs-modal-marks',
@@ -16,26 +10,24 @@ export interface MarksModel {
     styleUrls: ['./modal-marks.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> implements MarksModel, OnInit {
-    title: string;
-    message: string;
-    marks: Mark[];
+export class ModalMarksComponent implements OnInit {
+    @Input() marks: Mark[];
+    
     selected: {[id: string]: number} = {};
-    num = 1;
-    sectors = _.sortBy(sectors).reverse();
-    rings = rings;
     lookup = lookup;
 
-    constructor(dialogService: DialogService) {
-        super(dialogService);
-    }
+    @Output() confirm = new EventEmitter();
+    @Output() cancel = new EventEmitter();
+
+    constructor() {}
 
     ngOnInit() {
         console.debug('ModalMarks::ngOnInit');
-        const marks = this.marks || [];
-        marks.forEach((m, i) => {
-            this.selected[m.id] = this.num++;
-        });
+        this.marks = this.marks || [];
+        this.selected = this.marks.reduce((map, obj, i) => {
+            map[obj.id] = i + 1;
+            return map;
+        }, {});
     }
 
     isSelected(s: number, r: number): boolean {
@@ -59,7 +51,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         if (this.selected[id]) { 
             this.selected[id] = null;
         } else {
-            this.selected[id] = this.num++;
+            const num = _.values(this.selected).length;
+            this.selected[id] = num + 1;
         }
         event.stopImmediatePropagation();
         event.preventDefault();
@@ -68,9 +61,8 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
     /**
      * User has clicked the save button. Return the list of selected marks
      */
-    confirm($event: Event) {
-        console.debug('ModalMarks::confirm');
-
+    onConfirm(event: MouseEvent): void {
+        console.debug('MarksModal::onConfirm');
         // Get the marks that have been selected by the user and return them
         // Make sure they are sorted in the order that they were clicked
         // The first mark clicked will be the first in the list when the 
@@ -78,24 +70,15 @@ export class ModalMarksComponent extends DialogComponent<MarksModel, Mark[]> imp
         const indexed = _.map(marks, m => {
             return { i: this.selected[m.id], m };
         });
-        
         const filtered =  _.filter(indexed, s => !!s.i);
         const ordered = _.orderBy(filtered, 'i');
         const selected = _.map(ordered, m => m.m);
-
-        // Set the marks and close the form
-        this.result = selected;
-        this.close();
-        $event.stopImmediatePropagation();
-        $event.preventDefault();
+        this.confirm.emit(selected);
     }
 
-
-    closeClicked(event: Event): void {
-        console.debug('MarksModalComponent::closeClicked');
-        this.close();
-        event.stopImmediatePropagation();
-        event.preventDefault();
+    onCancel(event: Event): void {
+        console.debug('MarksModalComponent::onCancel');
+        this.cancel.emit();
     }
 
     get count(): number {

@@ -1,11 +1,11 @@
 import { TestBed, async } from '@angular/core/testing';
-import { provideStore } from '@ngrx/store';
-import { DialogService } from 'ng2-bootstrap-modal';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { PageBaseComponent } from './flight-school/containers/page-base/page-base.component';
 import { SitenavComponent } from './flight-school/components';
 import { GameDurationPipe } from './flight-school/pipes';
 import { MarkPipe } from './flight-school/pipes';
+import { ModalModule } from 'ngx-bootstrap';
 
 const state = {
     count: 0,
@@ -18,17 +18,17 @@ const state = {
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ModalModule.forRoot()
+      ],
       declarations: [
         AppComponent,
         PageBaseComponent,
         SitenavComponent,
         MarkPipe,
-        GameDurationPipe
+        GameDurationPipe,
       ],
-      providers: [
-        provideStore(state),
-        { provide: DialogService, useValue: {} }
-      ]
+      providers: []
     }).compileComponents();
   }));
 

@@ -3,10 +3,10 @@ import { createSelector } from 'reselect';
 import { ActionReducer } from '@ngrx/store';
 import * as fromRouter from '@ngrx/router-store';
 
-import { compose } from '@ngrx/core/compose';
+import { compose } from '@ngrx/store';
 import { storeFreeze } from 'ngrx-store-freeze';
-import { combineReducers } from '@ngrx/store';
-
+import { combineReducers, MetaReducer } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
 import { Mark } from '../models/mark';
@@ -31,7 +31,7 @@ export interface State {
     selected: Selected;
 }
 
-const reducers = {
+export const reducers: ActionReducerMap<State> = {
     count: fromCount.reducer,
     marksModal: fromMarksModal.reducer,
     marks: fromMarks.reducer,
@@ -42,24 +42,15 @@ const reducers = {
 // const developmentReducer: ActionReducer<State> = compose(storeFreeze, combineReducers)(reducers);
 // const productionReducer: ActionReducer<State> = combineReducers(reducers);
 
-const storageReducer = localStorageSync(['turns', 'marks', 'count', 'selected', 'start'], true);
-
-const developmentReducer = compose(storeFreeze, storageReducer, combineReducers)(reducers);
-const productionReducer = compose(storageReducer, combineReducers)(reducers);
-
-export function reducer(state: any, action: any) {
-    if (environment.production) {
-        return productionReducer(state, action);
-    } else {
-        return developmentReducer(state, action);
-    }
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+    const keys = ['turns', 'marks', 'count', 'selected', 'start'];
+    return localStorageSync({keys, rehydrate: true})(reducer);
 }
 
-
+export const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
 
 export const getCount = (state: State) => state.count;
 export const getMarks = (state: State) => state.marks;
-
 export const getTurns = (state: State) => state.turns;
 export const getSelected = (state: State) => state.selected;
 
@@ -83,14 +74,9 @@ export const getActiveMarks = createSelector(getScore, getCount, (scores, count)
 
 // Target
 export const getNextTarget = createSelector(getMarks, getTurns, getCount, getTarget);
-
 export const getIsComplete = createSelector(getMarks, getScore, getCount, isComplete);
-
-
 export const getRounds = createSelector(getScore, getRoundCount);
-
 export const selectStats = createSelector(getTurns, getMarks, getCount, getStats);
-
 export const selectStart = createSelector(getTurns, getStart);
 export const selectEnd = createSelector(getMarks, getTurns, getCount, getEnd);
 export const selectDuration = createSelector(getTurns, getMarks, getCount, getDuration);

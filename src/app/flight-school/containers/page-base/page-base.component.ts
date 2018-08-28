@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { timer } from 'rxjs/observable/timer';
+import { combineLatest } from 'rxjs/observable/combineLatest';
+import { map, merge, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
-import { DialogService } from 'ng2-bootstrap-modal';
-import * as _ from 'lodash';
-
 import { Turn, Score, Throw, Target, Selected } from '../../models/score';
 import { Stats, getDuration } from '../../models/stats';
 import { Mark } from '../../models/mark';
 import { ModalMarksComponent } from '../../components';
-
 import * as fromRoot from '../../reducers';
 import * as selectedActions from '../../actions/selected.actions';
 import * as countActions from '../../actions/count.actions';
@@ -17,6 +18,8 @@ import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
 import * as turnsActions from '../../actions/turns.actions';
 import * as moment from 'moment';
+import * as _ from 'lodash';
+import * as ramda from 'ramda';
 import { Duration } from 'moment';
 
 const emptyTarget = { first: false, second: false, third: false };
@@ -27,6 +30,8 @@ const emptyTarget = { first: false, second: false, third: false };
     styleUrls: ['./page-base.component.scss']
 })
 export class PageBaseComponent implements OnInit, OnDestroy {
+
+    isDragging$: Subject<boolean>;
 
     count$: Observable<number>;
     showMarks$: Observable<boolean>;
@@ -57,10 +62,27 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     stats$: Observable<Stats>;
     start$: Observable<Date>;
     duration$: Observable<Duration>;
+    options: any;
+
+
+    @ViewChild('modalMarks') modalMarks: ModalDirective;
+    isModalShown = false;
+   
+    showModal(): void {
+      this.isModalShown = true;
+    }
+   
+    hideModal(): void {
+      return this.modalMarks && this.modalMarks.hide();
+    }
+   
+    onHidden(): void {
+      this.isModalShown = false;
+    }
 
     constructor(
         private store: Store<fromRoot.State>,
-        private dialogService: DialogService
+        private ch: ChangeDetectorRef
     ) {
         this.count$ = this.store.select(fromRoot.getCount);
         this.showMarks$ = this.store.select(fromRoot.getMarksModalShow);
@@ -68,21 +90,28 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         this.turns$ = this.store.select(fromRoot.getTurns);
         this.score$ = this.store.select(fromRoot.getScore);
         this.target$ = this.store.select(fromRoot.getNextTarget);
-        this.selected$ = this.store.select(fromRoot.getSelected).do(selected => console.log('PageBase::selected$ success', selected));
+        this.selected$ = this.store.select(fromRoot.getSelected);
         this.activeMarks$ = this.store.select(fromRoot.getActiveMarks);
         this.isComplete$ = this.store.select(fromRoot.getIsComplete);
         this.rounds$ = this.store.select(fromRoot.getRounds); 
         this.stats$ = this.store.select(fromRoot.selectStats);
         this.start$ = this.store.select(fromRoot.selectStart);
-        this.duration$ = Observable.combineLatest(
-            Observable.timer(1, 30000), 
+        this.isDragging$ = new Subject<boolean>();
+
+
+
+        this.duration$ = combineLatest(
+            timer(1, 30000), 
             this.store.select(fromRoot.getTurns),
             this.store.select(fromRoot.getMarks),
             this.store.select(fromRoot.getCount)
-        ).map(([i, turns, marks, count]) => {
-            const duration = getDuration(turns, marks, count);
-            return duration;
-        });
+
+        ).pipe(
+            map(([i, turns, marks, count]) => {
+                const duration = getDuration(turns, marks, count);
+                return duration;
+            })
+        );
      }
 
     ngOnInit() {
@@ -92,24 +121,47 @@ export class PageBaseComponent implements OnInit, OnDestroy {
             this.store.dispatch(new selectedActions.SelectedUpdateComplete(emptyTarget));
         });
 
-        this.showMarks$.subscribe(show => {
-            console.debug('PageBase::showMarks$', show);
-            if (show) { 
-                this.openMarksModal(); 
-            } else { 
-                this.closeMarksModal(); 
-            }
-        });
-
         this.turns$.subscribe(turns => this.turns = turns);
         this.score$.subscribe(scores => this.scores = scores);
         this.target$.subscribe(target => this.target = target);
         this.selected$.subscribe(selected => this.selected = selected);
         this.activeMarks$.subscribe(activeMarks => this.activeMarks = _.keyBy(activeMarks, m => m.id));
         this.isComplete$.subscribe(isComplete => this.isComplete = isComplete);
+        
+        this.showMarks$.pipe(filter(m => m === true)).subscribe(m => this.showModal());
+        this.showMarks$.pipe(filter(m => !(m === true))).subscribe(m => this.hideModal());
+
+        this.options = {
+            scrollSensitivity: 5,
+            handle: '.score-index',
+            onStart: (e: any) => { this.onDragStart(e); },
+            onChoose: (e: any) => { console.log('onChoose', e); },
+            onEnd: (e: any) => { this.onDragEnd(e); },
+            onUpdate: (event: any) => { this.onReorderMark(event.oldIndex, event.newIndex); }
+        };
+
     }
 
     ngOnDestroy() {    }
+
+    onDragStart(event) {
+        console.log('onStart', event);
+        this.isDragging$.next(true);
+        this.ch.detectChanges();
+    }
+    onDragEnd(event) {
+        console.log('onEnd', event);
+        this.isDragging$.next(false);
+        this.ch.detectChanges();
+    }
+    onReorderMark(oldIndex: number, newIndex: number): void {
+        console.log('PageBase::onReorderMark', oldIndex, newIndex);
+        const mark = this.marks[oldIndex];
+        let marks = ramda.remove(oldIndex, 1, this.marks);
+        marks = ramda.insert(newIndex, mark, marks);
+        this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
+    }
 
     onCountChanged(count: number): void {
         console.log('PageBase::onCountChanged', count);
@@ -120,9 +172,6 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     onMarksClicked(event: Event) {
         console.debug('PageBaseComponent::onMarksClicked');
         this.store.dispatch(new marksModalActions.Show());
-        if (event == null) { return; }
-        event.stopImmediatePropagation();
-        event.preventDefault();
     }
 
     select(mark: Mark, event: Event): void {
@@ -239,47 +288,29 @@ export class PageBaseComponent implements OnInit, OnDestroy {
     }
 
     get showStats$(): Observable<boolean> {
-        return this.turns$.map(t => t.length > 0);
+        return this.turns$.pipe(map(t => t.length > 0));
     }
 
-
-    private openMarksModal() {
-        console.debug('PageBase::openMarksModal');
-        const options = { 
-            backdropColor: 'rgba(0,0,0, .8)', 
-            closeByClickingOutside: true
-        };
-
-        const data = {
-            title: 'Confirm title',
-            message: 'Confirm message',
-            marks: this.marks
-        };
-
-        this.showMarksSub = this.dialogService.addDialog(
-            ModalMarksComponent, 
-            data,
-            options
-        ).subscribe((isConfirmed) => this.isConfirmed(isConfirmed));
+    onConfirm(marks: Mark[]): void {
+        console.debug('PageBase::onConfirm', marks);
+        this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
+        this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
+        this.store.dispatch(new marksModalActions.Hide());
     }
 
+    onCancel(event): void {
+        console.debug('PageBase::onCancel', event);
+        this.store.dispatch(new marksModalActions.Hide());
+    }
     
     private closeMarksModal() {
         console.debug('PageBase::closeMarksModal');
-        if (this.showMarksSub && !this.showMarksSub.closed) {
-            this.showMarksSub.unsubscribe();
-        }
-    }
-
-
-    private isConfirmed(marks: Mark[]) {
-        console.debug('PageBase::isConfirmed success', marks);
         this.store.dispatch(new marksModalActions.Hide());
-        if (marks) {
-            this.store.dispatch(new marksActions.MarksUpdateComplete(marks));
-            this.store.dispatch(new turnsActions.TurnsUpdateComplete([]));
-        }
+        // if (this.showMarksSub && !this.showMarksSub.closed) {
+        //     this.showMarksSub.unsubscribe();
+        // }
     }
+
 
     private isFirstTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }

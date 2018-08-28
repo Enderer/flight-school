@@ -1,6 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DialogService } from 'ng2-bootstrap-modal';
 import { StoreModule } from '@ngrx/store';
 import { SitenavComponent } from '../../components';
 import { PageBaseComponent } from './page-base.component';
@@ -26,10 +24,8 @@ describe('PageBaseComponent', () => {
         Pipes.MarkPipe,
         Pipes.GameDurationPipe
       ],
-      imports: [StoreModule.provideStore({})],
+      imports: [],
       providers: [
-        
-        { provide: DialogService, useValue: { } }
       ]
     })
     .compileComponents();

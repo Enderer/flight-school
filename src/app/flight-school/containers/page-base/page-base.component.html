@@ -1,10 +1,25 @@
+<div *ngIf="isModalShown">
+    <div  
+        #modalMarks="bs-modal"
+        [config]="{ show: true }" 
+        (onHidden)="onHidden()" 
+        bsModal       
+        class="modal fade"
+        tabindex="-1" 
+        role="dialog">
+        <fs-modal-marks
+            [marks]="marks$ | async"
+            (confirm)="onConfirm($event)"
+            (cancel)="onCancel($event)">
+        </fs-modal-marks>
+    </div>
+</div>
 
-<div class="container-fluid px-0 w-100 h-100 bg-wood" style="position: absolute">
+<div class="container-fluid px-0 w-100 h-100 bg-wood no-select" style="position: absolute">
     <div class="row h-100 no-gutters">
-
-        <div class="col-xl-6 h-100 bg-blank bg-shadow mx-auto panel-scores">
-            
+        <div class="col-xl-6 h-100 bg-blank bg-shadow mx-auto panel-scores">       
             <div class="d-flex flex-column w-100 h-100" style="position:absolute">
+                   
                 <fs-sitenav 
                     [count]="count$ | async" 
                     (countChanged)="onCountChanged($event)" 
@@ -13,7 +28,6 @@
                 </fs-sitenav>
 
                 <div style="flex-grow:1; overflow:hidden" class="d-flex flex-column">
-
                     <div *ngIf="!showButtons" 
                         (mousedown)="onMarksClicked($event)"
                         (touchstart)="onMarksClicked($event)"
@@ -32,6 +46,7 @@
                                 <!-- Round -->
                                 <div class="d-flex pr-3">
                                     <div class="pr-1">
+                                        
                                         <!-- <div class="stats-small">Round</div> -->
                                         <div class="stats-big">{{(stats$ | async).rounds}}&nbsp;</div>
                                     </div>
@@ -86,33 +101,50 @@
                             </div>
                         </div>
 
+                        <div class="enter-button text-center d-flex align-items-stretch justify-content-center">
 
-                        <a href="javascript:void(0)"
+
+                        <a *ngIf="!isComplete"
+                            href="javascript:void(0)"
                             style="border-width: 0 0 0 1px;"
-                            class="btn btn-primary btn-enter p-3 float-right" 
+                            class="btn btn-primary btn-enter p-3 w-100 d-flex justify-content-center align-items-center" 
                             [class.disabled]="isComplete"
                             [class.bg-blank]="isComplete"
                             (mousedown)="enterClicked($event)"
                             (touchstart)="enterClicked($event)">
-                            <span *ngIf="hasSelected && !isComplete">Enter</span>
-                            <span *ngIf="!hasSelected && !isComplete">Miss</span>
-                            <span *ngIf="isComplete">
-                                Complete
-                            </span>
+                            <span *ngIf="hasSelected">Enter</span>
+                            <span *ngIf="!hasSelected">Miss</span>
                         </a>
+
+                        <div *ngIf="isComplete">
+                            Complete
+                        </div>
+
+                        </div>
 
                         <a href="javascript:void(0)" 
                             style="border-width: 0 0 0 1px;"
-                            class="btn btn-danger btn-cancel p-3 float-right" 
+                            class="btn btn-danger btn-cancel p-3" 
                             (mousedown)="cancelClicked($event)"
-                            (touchstart)="cancelClicked($event)">C</a>
+                            (touchstart)="cancelClicked($event)">
+                            C
+                        </a>
 
                         <!--<button class="btn btn-secondary"><i class="fa fa-bar-chart"></i></button>-->
                     </div>
 
                     <!-- Marks -->
-                    <div *ngIf="showButtons" class="flex-container flex-container-scores" style="flex-grow:1">
-                        <div class="flex-item" *ngFor="let mark of marks; let i = index;"
+                    <div *ngIf="showButtons" 
+                        [sortablejs]
+                        [sortablejsOptions]="options"
+                        class="flex-container flex-container-scores" 
+                        [class.dragging-yes]="(isDragging$ | async) === true"
+                        [class.dragging-no]="(isDragging$ | async) !== true"
+                        style="flex-grow:1">
+
+                        <div class="flex-item bg-blank" 
+                            *ngFor="let mark of marks; let i = index;"
+                            [attr.data-mark-id]="mark.id"
                             [class.bg-faded]="isClosed(mark)"
                             [class.closed]="isClosed(mark)">
 
@@ -165,9 +197,6 @@
                 </div>
 
             </div>
-
         </div>
-
-        <!--<div class="col-xl-6 h-100 hidden-lg-down"></div>-->
     </div>
 </div>

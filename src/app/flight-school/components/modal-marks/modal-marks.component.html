@@ -1,5 +1,6 @@
 
-  <div class="modal-dialog modal-fullheight modal-from-left" role="document">
+
+  <div class="modal-dialog modal-fullheight modal-from-left no-select" role="document">
     <div class="modal-content">
         <nav class="navbar navbar-toggleable-xl navbar-inverse bg-inverse px-0 border-bottom-0" style="border-bottom: 1px solid #0a0a0a">
             <div class="navbar-text text-center" style="flex:1">
@@ -10,10 +11,7 @@
 
             <ul class="navbar-nav">
                 <li class="nav-item" style="min-width:4rem">
-                    <a class="nav-link" 
-                      (mousedown)="refreshClicked($event)" 
-                      (touchstart)="refreshClicked($event)" 
-                      href="javascript:void(0)">
+                    <a class="nav-link" (click)="refreshClicked($event)">
                         <i class="fa fa-refresh"></i>
                     </a>
                 </li>
@@ -21,10 +19,7 @@
 
             <ul class="navbar-nav ml-auto" style="flex:1">    
                 <li class="nav-item ml-auto" style="border-left:0; flex:1;">
-                    <a class="nav-link px-4"
-                        (mousedown)="confirm($event)" 
-                        (touchstart)="confirm($event)" 
-                        href="javascript:void(0)">
+                    <a class="nav-link px-4" (click)="onConfirm($event)">
                         <span>Save</span>
                         <!--<i class="ml-1 fa fa-lg fa-external-link"></i>-->
                         <!--<i class="ml-1 fa fa-lg fa-external-link-square"></i>-->
@@ -33,10 +28,7 @@
 
                 <li class="nav-item dropdown"
                   style="text-align:center; border-right:0;">
-                    <a class="nav-link"
-                      (mousedown)="closeClicked($event)"
-                      (touchstart)="closeClicked($event)"
-                      href="javascript:void(0)">
+                    <a class="nav-link" (click)="onCancel($event)">
                         <i class="fa fa-close"></i>
                     </a>
                 </li>
@@ -129,7 +121,7 @@
               <div class="flex-cell bg-faded" [ngClass]="{ 'bg-success text-white': isSelected(25, 1) }" (mousedown)="markClicked(25, 1, $event)" (touchstart)="markClicked(25, 1, $event)">Bull</div>
               <div class="flex-cell" [ngClass]="{ 'bg-success text-white': isSelected(25, 2) }" (mousedown)="markClicked(25, 2, $event)" (touchstart)="markClicked(25, 2, $event)">DB</div>
               <div class="flex-cell"></div>
-              <div class="flex-cell cell-divider"></div>
+              <div class="flex-cell cell-divider bg-faded"></div>
               <div class="flex-cell"></div>
               <div class="flex-cell"></div>
             </div>
@@ -137,12 +129,12 @@
 
 
       
-      <!--<div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (mousedown)="refreshClicked()">
           <i class="fa fa-refresh"></i>
         </button>
         <button type="button" class="btn btn-secondary" (mousedown)="close()">Cancel</button>
         <button type="button" class="btn btn-primary" (mousedown)="confirm()">Select Marks</button>
-      </div>-->
+      </div> -->
     </div>
   </div>

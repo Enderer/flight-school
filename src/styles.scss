@@ -5,6 +5,14 @@
 //     // font-size: 1.5em;
 // }
 
+html,
+body {
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
 .font-weight-light {
     font-weight: lighter;
 }
@@ -191,13 +199,16 @@ a.btn:focus {
     align-items: stretch;
     max-height: 5.85em;
     flex-basis: auto;
+    border-width: 1px 0px 0px 0px;
+    border-style: solid;
+    border-color: $border-color;
 }
 .flex-cell {
     display: flex;
     align-items: center;
     align-self: stretch;
     justify-content: center;
-    border-width: 1px 0px 0px 1px;
+    border-width: 0px 0px 0px 1px;
     border-style: solid;
     border-color: $border-color;
     flex-shrink: 0;
