@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FlightSchoolModule } from '../../flight-school.module';
 import { SitenavComponent } from './sitenav.component';
 
 describe('SitenavComponent', () => {
@@ -8,7 +8,7 @@ describe('SitenavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SitenavComponent ]
+      imports: [ FlightSchoolModule ]
     })
     .compileComponents();
   }));

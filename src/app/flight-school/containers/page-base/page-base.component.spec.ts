@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
-import { SitenavComponent } from '../../components';
 import { PageBaseComponent } from './page-base.component';
-import * as Pipes from '../../pipes';
+import { FlightSchoolModule } from '../../flight-school.module';
 
 const state = {
     count: 0,
@@ -18,15 +16,7 @@ describe('PageBaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
-        PageBaseComponent, 
-        SitenavComponent, 
-        Pipes.MarkPipe,
-        Pipes.GameDurationPipe
-      ],
-      imports: [],
-      providers: [
-      ]
+      imports: [ FlightSchoolModule ],
     })
     .compileComponents();
   }));

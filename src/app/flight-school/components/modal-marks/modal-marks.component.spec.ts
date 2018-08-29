@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalMarksComponent } from './modal-marks.component';
+import { FlightSchoolModule } from '../../flight-school.module';
 
 describe('ModalMarksComponent', () => {
   let component: ModalMarksComponent;
@@ -7,7 +8,7 @@ describe('ModalMarksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ModalMarksComponent ],
+      imports: [ FlightSchoolModule ],
     })
     .compileComponents();
   }));

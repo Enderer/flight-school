@@ -16,7 +16,7 @@ import { SortablejsModule } from 'angular-sortablejs';
     FormsModule,
     HttpModule,
     FlightSchoolModule,
-    SortablejsModule.forRoot({ animation: 150 }),
+    SortablejsModule.forRoot({ animation: 100 }),
   ],
   providers: [],
   bootstrap: [AppComponent]
