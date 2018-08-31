@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import * as marksModal from '../actions/marks-modal.actions';
 
 export interface State {

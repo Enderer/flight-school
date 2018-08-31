@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import { Mark } from '../models/mark';
 import * as marks from '../actions/marks.actions';
 

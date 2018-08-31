@@ -2,15 +2,6 @@ import { TestBed, async } from '@angular/core/testing';
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
-
-const state = {
-    count: 0,
-    marks: [],
-    turns: [],
-    marksModal: { show: false },
-    selected: {}
-};
-
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({

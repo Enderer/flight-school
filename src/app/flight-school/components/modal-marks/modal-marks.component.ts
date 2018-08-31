@@ -1,8 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
 import { Mark } from '../../models/mark';
-import { lookup, bySector, byRing, marks, sectors, rings } from '../../models/marks';
+import { lookup, marks } from '../../models/marks';
 
 @Component({
     selector: 'fs-modal-marks',

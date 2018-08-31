@@ -129,7 +129,7 @@ function updateTurns(stats: Stats, turn: Turn1): Stats {
     stats.turns = stats.turns || 0;
     stats.turns++;
     return stats;
-};
+}
 
 function updateThrows(stats: Stats, turn: Turn1): Stats {
     stats.throws = stats.throws || 0;
@@ -142,7 +142,7 @@ export interface MarkCount {
     hits: number;
 }
 
-export interface MarkCounts {[id: string]: MarkCount; };
+export interface MarkCounts {[id: string]: MarkCount; }
 
 function updateMarkCounts(stats: Stats, turn: Turn1): Stats {
     let counts = stats.markCounts || {};
@@ -156,18 +156,6 @@ function updateMarkCounts(stats: Stats, turn: Turn1): Stats {
     stats.markCounts = counts;
     return stats;
 }  
-
-
-function getRounds(markCounts: MarkCounts): number {
-    const roundCount = _.max(_.values(markCounts).map(m => m.hits + m.misses));
-
-    return roundCount;
-}
-
-// function updateRound(stats: Stats, turn: Turn1): Stats {
-//     stats.rounds = stats.rounds || 0;
-//     stats.rounds += is
-// }
 
 function isMiss(turn: Turn1): boolean {
     const hit = _.some(turn.targets, (t: MarkTarget) => t.hit);
@@ -268,20 +256,14 @@ export const getStats = (turns: Turn[], marks: Mark[], required: number): Stats 
 
 export const getDuration = (turns: Turn[], marks: Mark[], count: number): Duration => {
     const scores = ScoreModule.getScores(turns, marks);
-    const isComplete = ScoreModule.isComplete(marks, scores, count);
-    const start = ScoreModule.getStart(turns);
-    
+    const isComplete = ScoreModule.isComplete(marks, scores, count);    
     const turns1 = turns.map(mapTurn);
-
     const timestamps = turns1.map(t => t.timestamp);
     if (isComplete === false) {
         timestamps.push(new Date());
     }
 
-
-
     const d = timestamps.reduce((duration: Duration, date: Date, i: number, turnList: Date[]): Duration => {
-
         let prev = i > 0 ? turnList[i - 1] : null;
         if (prev == null) {
             prev = moment(date).subtract(1, 'minute').toDate();

@@ -1,23 +1,21 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { timer } from 'rxjs/observable/timer';
 import { combineLatest } from 'rxjs/observable/combineLatest';
-import { map, merge, filter } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs/Subscription';
 import { Turn, Score, Throw, Target, Selected } from '../../models/score';
 import { Stats, getDuration } from '../../models/stats';
 import { Mark } from '../../models/mark';
-import { ModalMarksComponent } from '../../components';
 import * as fromRoot from '../../reducers';
 import * as selectedActions from '../../actions/selected.actions';
 import * as countActions from '../../actions/count.actions';
 import * as marksModalActions from '../../actions/marks-modal.actions';
 import * as marksActions from '../../actions/marks.actions';
 import * as turnsActions from '../../actions/turns.actions';
-import * as moment from 'moment';
 import * as _ from 'lodash';
 import * as ramda from 'ramda';
 import { Duration } from 'moment';
@@ -302,30 +300,21 @@ export class PageBaseComponent implements OnInit, OnDestroy {
         console.debug('PageBase::onCancel', event);
         this.store.dispatch(new marksModalActions.Hide());
     }
-    
-    private closeMarksModal() {
-        console.debug('PageBase::closeMarksModal');
-        this.store.dispatch(new marksModalActions.Hide());
-        // if (this.showMarksSub && !this.showMarksSub.closed) {
-        //     this.showMarksSub.unsubscribe();
-        // }
-    }
 
-
-    private isFirstTarget(mark: Mark): boolean {
+    isFirstTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 
         return (this.target.first && this.target.first.id === mark.id);
     }
 
-    private isSecondTarget(mark: Mark): boolean {
+    isSecondTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 
         return (this.target.second && this.target.second.id === mark.id);
     }
-    private isThirdTarget(mark: Mark): boolean {
+    isThirdTarget(mark: Mark): boolean {
         if (this.target == null) { return false; }
         if (mark == null) { return false; }
 

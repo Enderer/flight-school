@@ -1,4 +1,3 @@
-import { createSelector } from 'reselect';
 import * as count from '../actions/count.actions';
 
 export const initialState = 5;

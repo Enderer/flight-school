@@ -1,16 +1,9 @@
 import * as _ from 'lodash';
 import { createSelector } from 'reselect';
-import { ActionReducer } from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
-
-import { compose } from '@ngrx/store';
-import { storeFreeze } from 'ngrx-store-freeze';
-import { combineReducers, MetaReducer } from '@ngrx/store';
-import { ActionReducerMap } from '@ngrx/store';
-import { environment } from '../../../environments/environment';
+import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import { Mark } from '../models/mark';
-import { Score, Turn, Selected, getScores, getTarget, isComplete, getStart, getEnd } from '../models/score';
+import { Turn, Selected, getScores, getTarget, isComplete, getStart, getEnd } from '../models/score';
 import { getRoundCount, getStats, getDuration } from '../models/stats';
 
 import * as fromSelected from './selected.reducer';
@@ -20,8 +13,6 @@ import * as fromMarks from './marks.reducer';
 import * as fromMarksModal from './marks-modal.reducer';
 
 import { localStorageSync } from 'ngrx-store-localstorage';
-
-
 
 export interface State {
     count: number;

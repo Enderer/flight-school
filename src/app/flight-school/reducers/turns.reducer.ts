@@ -1,6 +1,4 @@
-import { createSelector } from 'reselect';
-import * as _ from 'lodash';
-import { Turn, Score, Throw } from '../models/score';
+import { Turn } from '../models/score';
 import * as turns from '../actions/turns.actions';
 
 export const initialState: Turn[] = [];

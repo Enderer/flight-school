@@ -1,4 +1,4 @@
-import { Mark, byId } from '../models';
+import { byId } from '../models';
 import { MarkPipe } from './mark.pipe';
 
 describe('MarkPipe', () => {

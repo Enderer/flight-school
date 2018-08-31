@@ -19,15 +19,12 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "fs",
       "styles": [
-        "../node_modules/font-awesome/scss/font-awesome.scss",
-        "styles.scss",
-        "font-roboto.scss"
+        "styles.scss"
       ],
       "scripts": [
-          "../node_modules/hammerjs/hammer.js",
-          "../node_modules/jquery/dist/jquery.slim.js",
-          "../node_modules/tether/dist/js/tether.js",
-          "../node_modules/bootstrap/dist/js/bootstrap.js"
+        "../node_modules/jquery/dist/jquery.slim.js",
+        "../node_modules/tether/dist/js/tether.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

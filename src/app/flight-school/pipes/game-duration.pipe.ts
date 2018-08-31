@@ -1,6 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Duration } from 'moment';
-import * as moment from 'moment';
 
 /**
  * Formats the duration of the game for display to the user
