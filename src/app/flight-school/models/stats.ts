@@ -38,11 +38,11 @@ export class Stats {
 
 
 export function reduceRoundsTurn(attempts, turn: Turn): any {
-    const updated = turn.throws.reduce((a, t) => {
+    const updated = turn.throws.reduce((accum, t) => {
         const id = t.mark.id;
-        a[id] = a[id] || 0;
-        a[id]++;
-        return a;
+        accum[id] = accum[id] || 0;
+        accum[id]++;
+        return accum;
     }, attempts);
 
     return updated;
