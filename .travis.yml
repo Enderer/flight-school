@@ -18,10 +18,11 @@ before_script:
 script: 
   - npm run ci
 deploy:
-   provider: pages
-   skip_cleanup: true
-   github_token: $GITHUB_TOKEN
-   local_dir: dist
-   fqdn: flightschool.dartbot.com
-   on:
-     branch: master
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: "flightschool.dartbot.com"
+    skip_cleanup: true
+    local_dir: dist
+    on:
+      branch: master
